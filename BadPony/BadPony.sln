@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadPony.Web", "BadPony\BadPony.Web.csproj", "{16139014-98E9-4F73-9236-1CF7287048F9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadPony.Core", "BadPony.Core\BadPony.Core.csproj", "{11BAE568-6321-4C17-8BFA-8B979F42F7C2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BadPony.ConsoleInterface", "BadPony.Console\BadPony.ConsoleInterface.csproj", "{DE0F494B-061C-4F73-A0E8-D93EA7067AE4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{16139014-98E9-4F73-9236-1CF7287048F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{16139014-98E9-4F73-9236-1CF7287048F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{16139014-98E9-4F73-9236-1CF7287048F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{16139014-98E9-4F73-9236-1CF7287048F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11BAE568-6321-4C17-8BFA-8B979F42F7C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11BAE568-6321-4C17-8BFA-8B979F42F7C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11BAE568-6321-4C17-8BFA-8B979F42F7C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11BAE568-6321-4C17-8BFA-8B979F42F7C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE0F494B-061C-4F73-A0E8-D93EA7067AE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE0F494B-061C-4F73-A0E8-D93EA7067AE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE0F494B-061C-4F73-A0E8-D93EA7067AE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE0F494B-061C-4F73-A0E8-D93EA7067AE4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
