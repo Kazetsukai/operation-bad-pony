@@ -18,7 +18,19 @@ namespace V8EmbeddingTest
             while (line != String.Empty)
             {
                 line = Console.ReadLine();
-                Console.WriteLine(v8Engine.ExecuteCommand(line));
+
+                try
+                {
+                    Console.WriteLine("> " + v8Engine.ExecuteCommand(line));
+                }
+                catch (Exception e)
+                {
+                    var oldColor = Console.ForegroundColor;
+                    
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Error: " + e.Message);
+                    Console.ForegroundColor = oldColor;
+                }
             }
         }
     }
