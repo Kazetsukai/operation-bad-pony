@@ -36,8 +36,25 @@ namespace BadPony.ConsoleInterface
             }
             else
             {
+                PrintInColour(location.Name, ConsoleColor.White);
                 Console.WriteLine();
+                Console.WriteLine(location.Description);
             }
+        }
+
+        // Classic defiance against American spelling
+        public static void PrintInColour(string message, ConsoleColor colour, ConsoleColor backgroundColour = ConsoleColor.Black)
+        {
+            var oldColour = Console.ForegroundColor;
+            var oldBackColour = Console.BackgroundColor;
+
+            Console.ForegroundColor = colour;
+            Console.BackgroundColor = backgroundColour;
+
+            Console.WriteLine(message);
+
+            Console.ForegroundColor = oldColour;
+            Console.BackgroundColor = oldBackColour;
         }
     }
 }
