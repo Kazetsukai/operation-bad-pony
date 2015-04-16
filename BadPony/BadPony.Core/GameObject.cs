@@ -1,3 +1,5 @@
+using System.Runtime.Serialization;
+
 namespace BadPony.Core
 {
     public class GameObject
@@ -13,7 +15,7 @@ namespace BadPony.Core
         public int Id { get; private set; }
         public string Name { get; set; }
         public string Description { get; set; }
-        public GameObject Container { get; set; }
+        public int ContainerId { get; set; }
 
         // Threadsafe ID generation
         private static int GetNextId()

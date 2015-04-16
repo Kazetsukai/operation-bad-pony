@@ -3,7 +3,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
 
-namespace BadPony
+namespace BadPony.WebInterface
 {
     public partial class Startup
     {

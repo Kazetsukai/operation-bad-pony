@@ -1,8 +1,9 @@
-﻿using Microsoft.Owin;
+﻿using BadPony.WebInterface;
+using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(BadPony.Startup))]
-namespace BadPony
+[assembly: OwinStartup(typeof(Startup))]
+namespace BadPony.WebInterface
 {
     public partial class Startup
     {

@@ -9,6 +9,7 @@ namespace BadPony.Core
     public class Game
     {
         private List<GameObject> _gameObjects = new List<GameObject>();
+        private object _lockObject = new object();
 
         public Game()
         {
@@ -31,12 +32,21 @@ namespace BadPony.Core
 
         public IEnumerable<GameObject> GetAllObjects()
         {
-            return _gameObjects.ToList();
+            lock (_lockObject)
+                return _gameObjects.ToList();
         }
 
-        public IEnumerable<GameObject> GetContainedObjects(GameObject container)
+        public IEnumerable<GameObject> GetContainedObjects(int containerId)
         {
-            return _gameObjects.Where(g => g.Container == container).ToList();
+            lock (_lockObject)
+                return _gameObjects.Where(g => g.ContainerId == containerId).ToList();
+        }
+
+        public GameObject GetObject(int id)
+        {
+            // Super inefficient, but simplest approach for now.
+            lock (_lockObject)
+                return _gameObjects.FirstOrDefault(g => g.Id == id);
         }
     }
 }

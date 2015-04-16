@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BadPony.Models
+namespace BadPony.WebInterface.Models
 {
     public class ExternalLoginConfirmationViewModel
     {
