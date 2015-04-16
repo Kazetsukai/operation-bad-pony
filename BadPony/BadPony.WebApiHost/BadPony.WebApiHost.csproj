@@ -79,7 +79,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BadPony.Core\BadPony.Core.csproj">
-      <Project>{11BAE568-6321-4C17-8BFA-8B979F42F7C2}</Project>
+      <Project>{11bae568-6321-4c17-8bfa-8b979f42f7c2}</Project>
       <Name>BadPony.Core</Name>
     </ProjectReference>
   </ItemGroup>

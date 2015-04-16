@@ -6,7 +6,6 @@ using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using BadPony.Core;
 using Newtonsoft.Json;
 
 namespace BadPony.WebInterface.Controllers
@@ -17,7 +16,7 @@ namespace BadPony.WebInterface.Controllers
         // GET: /Here/
         public ActionResult Index(int id = 0)
         {
-            GameObject loc = JsonConvert.DeserializeObject<GameObject>(new WebClient().DownloadString("http://localhost:9090/api/Location/" + id));
+            dynamic loc = JsonConvert.DeserializeObject(new WebClient().DownloadString("http://localhost:9090/api/Location/" + id));
 
             ViewBag.Location = loc;
 
