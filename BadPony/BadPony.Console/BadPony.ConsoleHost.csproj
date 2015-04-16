@@ -7,8 +7,8 @@
     <ProjectGuid>{DE0F494B-061C-4F73-A0E8-D93EA7067AE4}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BadPony.Console</RootNamespace>
-    <AssemblyName>BadPony.Console</AssemblyName>
+    <RootNamespace>BadPony.ConsoleHost</RootNamespace>
+    <AssemblyName>BadPony.ConsoleHost</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BadPony.Core;
 
-namespace BadPony.ConsoleInterface
+namespace BadPony.ConsoleHost
 {
     class Program
     {
