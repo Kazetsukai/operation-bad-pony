@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 
 namespace BadPony.WebInterface.Controllers
 {
+    [Authorize]
     public class HereController : Controller
     {
         private static readonly string UserIdPrefix = "userId-";
@@ -34,8 +35,18 @@ namespace BadPony.WebInterface.Controllers
 
                 /////////// TEMPORARILY HARDCODING TO KAZETSUKAI LOL /////////////////
                 if (playerObject == null)
-                    playerObject = JsonConvert.DeserializeObject(
-                        new WebClient().DownloadString("http://localhost:9090/api/Player/Kazetsukai"));
+                {
+                    new WebClient().UploadString("http://localhost:9090/api/Player/" + User.Identity.Name,
+                        JsonConvert.SerializeObject(new
+                        {
+                            Name = User.Identity.Name,
+                            UserName = User.Identity.Name
+                        }));
+
+                    playerObject =
+                        JsonConvert.DeserializeObject(
+                            new WebClient().DownloadString("http://localhost:9090/api/Player/" + User.Identity.Name));
+                }
                 //////////////////////////////////////////////////////////////////////
 
 

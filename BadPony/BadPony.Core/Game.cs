@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -31,15 +32,7 @@ namespace BadPony.Core
                         Name = "Back alley",
                         Description =
                             "You are in a dark alleyway. Foul smells mix together from nearby dumpsters and air-conditioning vents."
-                    }, 
-                    new Player()
-                    {
-                        Name = "Player",
-                        Description =
-                            "A human person.",
-                        UserName = "Kazetsukai",
-                        ContainerId = 1
-                    }, 
+                    }
                 }
             );
         }
@@ -67,6 +60,22 @@ namespace BadPony.Core
         {
             lock (_lockObject)
                 return _gameObjects.OfType<Player>().FirstOrDefault(p => p.UserName.ToLowerInvariant() == userName.ToLowerInvariant());
+        }
+
+        public void PostMessage(IGameMessage message)
+        {
+            // Dispatch messages at some point.
+            if (message is CreateNewPlayerMessage)
+            {
+                var m = message as CreateNewPlayerMessage;
+                var player = new Player()
+                {
+                    UserName = m.UserName,
+                    Name = m.Name
+                };
+
+                _gameObjects.Add(player);
+            }
         }
     }
 }
