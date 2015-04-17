@@ -8,11 +8,11 @@ using BadPony.Core;
 
 namespace BadPony.WebApiHost.Controllers
 {
-    public class LocationController : ApiController
+    public class PlayerController : ApiController
     {
-        public GameObject Get(int id = 0)
+        public Player Get(string id)
         {
-            return Program.Game.GetObject(id);
+            return Program.Game.GetPlayerByUsername(id);
         }
     }
 }

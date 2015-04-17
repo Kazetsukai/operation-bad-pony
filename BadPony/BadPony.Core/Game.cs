@@ -19,12 +19,26 @@ namespace BadPony.Core
         private void TemporaryHardcodedWorldSetup()
         {
             _gameObjects.AddRange(
-                new [] {
+                new[] {
+                    new GameObject()
+                    {
+                        Name = "The void",
+                        Description =
+                            "You are floating in a formless void."
+                    }, 
                     new GameObject()
                     {
                         Name = "Back alley",
                         Description =
                             "You are in a dark alleyway. Foul smells mix together from nearby dumpsters and air-conditioning vents."
+                    }, 
+                    new Player()
+                    {
+                        Name = "Player",
+                        Description =
+                            "A human person.",
+                        UserName = "Kazetsukai",
+                        ContainerId = 1
                     }, 
                 }
             );
@@ -47,6 +61,12 @@ namespace BadPony.Core
             // Super inefficient, but simplest approach for now.
             lock (_lockObject)
                 return _gameObjects.FirstOrDefault(g => g.Id == id);
+        }
+
+        public Player GetPlayerByUsername(string userName)
+        {
+            lock (_lockObject)
+                return _gameObjects.OfType<Player>().FirstOrDefault(p => p.UserName.ToLowerInvariant() == userName.ToLowerInvariant());
         }
     }
 }

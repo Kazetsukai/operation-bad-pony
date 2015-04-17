@@ -8,9 +8,9 @@ using BadPony.Core;
 
 namespace BadPony.WebApiHost.Controllers
 {
-    public class LocationController : ApiController
+    public class ObjectController : ApiController
     {
-        public GameObject Get(int id = 0)
+        public GameObject Get(int id)
         {
             return Program.Game.GetObject(id);
         }
