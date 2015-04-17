@@ -5,7 +5,9 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
+using BadPony.Core;
 using BadPony.WebInterface.Models;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
@@ -28,27 +30,18 @@ namespace BadPony.WebInterface.Controllers
 
             if (userGameId == null)
             {
+                // If we don't have a game object for the user's username, create one.
                 playerObject =
                     JsonConvert.DeserializeObject(
                         new WebClient().DownloadString("http://localhost:9090/api/Player/" + User.Identity.Name));
 
-
-                /////////// TEMPORARILY HARDCODING TO KAZETSUKAI LOL /////////////////
                 if (playerObject == null)
                 {
-                    new WebClient().UploadString("http://localhost:9090/api/Player/" + User.Identity.Name,
-                        JsonConvert.SerializeObject(new
-                        {
-                            Name = User.Identity.Name,
-                            UserName = User.Identity.Name
-                        }));
-
+                    new WebClient().UploadData("http://localhost:9090/api/Player/" + User.Identity.Name, new byte[0]);
                     playerObject =
                         JsonConvert.DeserializeObject(
                             new WebClient().DownloadString("http://localhost:9090/api/Player/" + User.Identity.Name));
                 }
-                //////////////////////////////////////////////////////////////////////
-
 
                 // TODO: Currently redirecting if the player doesn't have an object, need to change to creating an object later.
                 if (playerObject == null)

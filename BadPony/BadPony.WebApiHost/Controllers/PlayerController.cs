@@ -15,11 +15,11 @@ namespace BadPony.WebApiHost.Controllers
             return Program.Game.GetPlayerByUsername(id);
         }
 
-        public void Post(dynamic player)
+        public void Post(string id)
         {
-            if (player != null)
+            if (id != null)
             {
-                Program.Game.PostMessage(new CreateNewPlayerMessage() { UserName = player.UserName, Name = player.Name});
+                Program.Game.PostMessage(new CreateNewPlayerMessage() { UserName = id, Name = id });
             }
         }
     }
