@@ -3,3 +3,38 @@
 
 <h2>@ViewBag.Location.Name</h2>
 <p>@ViewBag.Location.Description</p>
+<h3>Items</h3>
+@foreach (var item in ViewBag.Location.Contents)
+{
+    if (@item.Type == 3)
+    {
+        <div class="object">
+            <h4>@item.Name</h4>
+            <p>@item.Description</p>
+        </div>
+    }
+}
+<div style="clear:both"></div>
+<h3>Exits</h3>
+@foreach (var item in ViewBag.Location.Contents)
+{
+    if(@item.Type == 2)
+    {     
+        <div class="object">
+            <h4>@item.Name</h4>
+            <p>@item.Description</p>
+        </div>
+    }
+}
+<div style="clear:both"></div>
+<h3>Players Nearby</h3>
+@foreach (var item in ViewBag.Location.Contents)
+{
+    if (@item.Type == 1)
+    {
+        <div class="player">
+            <p>@item.Name</p>            
+        </div>
+    }
+}
+<div style="clear:both"></div>

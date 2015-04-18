@@ -19,7 +19,7 @@ namespace BadPony.WebApiHost.Controllers
         {
             if (id != null)
             {
-                Program.Game.PostMessage(new CreateNewPlayerMessage() { UserName = id, Name = id });
+                Program.Game.PostMessage(new CreateNewPlayerMessage() { UserName = id, Name = id, Type = GameObjectType.Player });
             }
         }
     }

@@ -40,3 +40,20 @@ input[type="checkbox"].input-validation-error {
 .validation-summary-valid {
     display: none;
 }
+
+.object {
+    width: 250px;
+    height: 150px;
+    float:left;
+    margin:5px;
+    padding:12px;
+    background-color: #eee;
+}
+
+.player {    
+    height: 40px;
+    float:left;
+    margin:5px;
+    padding:10px;
+    background-color: #eee;
+}

@@ -60,6 +60,7 @@ namespace BadPony.WebInterface.Controllers
 
             var locationId = playerObject.ContainerId;
 
+            
             dynamic location =
                 JsonConvert.DeserializeObject(new WebClient().DownloadString("http://localhost:9090/api/Location/" + locationId));
 

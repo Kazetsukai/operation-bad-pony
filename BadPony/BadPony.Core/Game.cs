@@ -10,6 +10,7 @@ namespace BadPony.Core
     public class Game
     {
         private List<GameObject> _gameObjects = new List<GameObject>();
+        private List<Location> _gameLocations = new List<Location>();
         private object _lockObject = new object();
 
         public Game()
@@ -19,22 +20,53 @@ namespace BadPony.Core
 
         private void TemporaryHardcodedWorldSetup()
         {
+            Location theVoid = new Location()
+            {
+                Name = "The void",
+                Description = "You are floating in a formless void.",
+                Type = GameObjectType.Location
+            };
+
+            Location backAlley = new Location()
+            {
+                Name = "Back alley",
+                Description = "You are in a dark alleyway. Foul smells mix together from nearby dumpsters and air-conditioning vents." ,
+                Type = GameObjectType.Location
+            };
+
+            GameObject door = new GameObject()
+            {
+                Name = "Door to Fat Tony's Pizzeria",
+                Description = "A large service door for inward goods. You suspect it was once painted white.",
+                Type = GameObjectType.Door,
+                ContainerId = backAlley.Id
+            };
+
+            GameObject bin = new GameObject()
+            {
+                Name = "Smelly old bin",
+                Description = "A dented, aluminium rubbish bin full of old anchovy cans and slightly rotten vegetables.",
+                Type = GameObjectType.Item,
+                ContainerId = backAlley.Id
+            };
+
             _gameObjects.AddRange(
-                new[] {
-                    new GameObject()
-                    {
-                        Name = "The void",
-                        Description =
-                            "You are floating in a formless void."
-                    }, 
-                    new GameObject()
-                    {
-                        Name = "Back alley",
-                        Description =
-                            "You are in a dark alleyway. Foul smells mix together from nearby dumpsters and air-conditioning vents."
-                    }
+                new[] {                    
+                    theVoid, 
+                    backAlley,
+                    door,
+                    bin
                 }
             );
+            
+            _gameLocations.AddRange(
+                new []
+                {
+                    theVoid,
+                    backAlley
+                }
+            );
+
         }
 
         public IEnumerable<GameObject> GetAllObjects()
@@ -56,6 +88,12 @@ namespace BadPony.Core
                 return _gameObjects.FirstOrDefault(g => g.Id == id);
         }
 
+        public Location GetLocation(int id)
+        {
+            lock (_lockObject)
+                return _gameLocations.FirstOrDefault(l => l.Id == id);
+        }        
+
         public Player GetPlayerByUsername(string userName)
         {
             lock (_lockObject)
@@ -71,7 +109,9 @@ namespace BadPony.Core
                 var player = new Player()
                 {
                     UserName = m.UserName,
-                    Name = m.Name
+                    Name = m.Name,
+                    ContainerId = 1,
+                    Type = GameObjectType.Player
                 };
 
                 _gameObjects.Add(player);

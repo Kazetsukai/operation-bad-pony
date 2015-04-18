@@ -2,6 +2,14 @@ using System.Runtime.Serialization;
 
 namespace BadPony.Core
 {
+    public enum GameObjectType
+    {
+        Location,
+        Player,
+        Door,
+        Item
+    }
+
     public class GameObject
     {
         private static readonly object LockObject = new object();
@@ -16,6 +24,7 @@ namespace BadPony.Core
         public string Name { get; set; }
         public string Description { get; set; }
         public int ContainerId { get; set; }
+        public GameObjectType Type { get; set; }
 
         // Threadsafe ID generation
         private static int GetNextId()
