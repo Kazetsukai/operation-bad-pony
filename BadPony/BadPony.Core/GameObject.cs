@@ -10,7 +10,7 @@ namespace BadPony.Core
         Item
     }
 
-    public class GameObject
+    public abstract class GameObject
     {
         private static readonly object LockObject = new object();
         private static int _nextId;
@@ -24,7 +24,7 @@ namespace BadPony.Core
         public string Name { get; set; }
         public string Description { get; set; }
         public int ContainerId { get; set; }
-        public GameObjectType Type { get; set; }
+        public abstract GameObjectType Type { get ; }
 
         // Threadsafe ID generation
         private static int GetNextId()

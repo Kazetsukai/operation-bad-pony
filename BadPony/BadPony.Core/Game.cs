@@ -1,7 +1,9 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,7 +12,6 @@ namespace BadPony.Core
     public class Game
     {
         private List<GameObject> _gameObjects = new List<GameObject>();
-        private List<Location> _gameLocations = new List<Location>();
         private object _lockObject = new object();
 
         public Game()
@@ -24,29 +25,25 @@ namespace BadPony.Core
             {
                 Name = "The void",
                 Description = "You are floating in a formless void.",
-                Type = GameObjectType.Location
             };
 
             Location backAlley = new Location()
             {
                 Name = "Back alley",
                 Description = "You are in a dark alleyway. Foul smells mix together from nearby dumpsters and air-conditioning vents." ,
-                Type = GameObjectType.Location
             };
 
-            GameObject door = new GameObject()
+            GameObject door = new Door()
             {
                 Name = "Door to Fat Tony's Pizzeria",
                 Description = "A large service door for inward goods. You suspect it was once painted white.",
-                Type = GameObjectType.Door,
                 ContainerId = backAlley.Id
             };
 
-            GameObject bin = new GameObject()
+            GameObject bin = new Item()
             {
                 Name = "Smelly old bin",
                 Description = "A dented, aluminium rubbish bin full of old anchovy cans and slightly rotten vegetables.",
-                Type = GameObjectType.Item,
                 ContainerId = backAlley.Id
             };
 
@@ -58,15 +55,6 @@ namespace BadPony.Core
                     bin
                 }
             );
-            
-            _gameLocations.AddRange(
-                new []
-                {
-                    theVoid,
-                    backAlley
-                }
-            );
-
         }
 
         public IEnumerable<GameObject> GetAllObjects()
@@ -88,34 +76,52 @@ namespace BadPony.Core
                 return _gameObjects.FirstOrDefault(g => g.Id == id);
         }
 
-        public Location GetLocation(int id)
-        {
-            lock (_lockObject)
-                return _gameLocations.FirstOrDefault(l => l.Id == id);
-        }        
-
         public Player GetPlayerByUsername(string userName)
         {
             lock (_lockObject)
-                return _gameObjects.OfType<Player>().FirstOrDefault(p => p.UserName.ToLowerInvariant() == userName.ToLowerInvariant());
+                return _gameObjects.OfType<Player>().FirstOrDefault(p => String.Equals(p.UserName, userName, StringComparison.InvariantCultureIgnoreCase));
         }
 
-        public void PostMessage(IGameMessage message)
+        public bool PostMessage(IGameMessage message)
         {
             // Dispatch messages at some point.
             if (message is CreateNewPlayerMessage)
             {
-                var m = message as CreateNewPlayerMessage;
-                var player = new Player()
+                var m = (CreateNewPlayerMessage)message;
+                var player = new Player
                 {
                     UserName = m.UserName,
                     Name = m.Name,
                     ContainerId = 1,
-                    Type = GameObjectType.Player
                 };
 
                 _gameObjects.Add(player);
+                
+                return true;
             }
+            else if (message is MoveObjectMessage)
+            {
+                var m = (MoveObjectMessage)message;
+
+                var obj = GetObject(m.ObjectId);
+
+                if (m.OriginId != null && m.OriginId.Value != obj.ContainerId)
+                {
+                    // Trying to move from a location you aren't in.
+                    return false;
+                }
+
+                obj.ContainerId = m.DestinationId;
+            }
+
+            return false;
         }
+    }
+
+    public class MoveObjectMessage : IGameMessage
+    {
+        public int ObjectId { get; set; }
+        public int DestinationId { get; set; }
+        public int? OriginId { get; set; }
     }
 }
