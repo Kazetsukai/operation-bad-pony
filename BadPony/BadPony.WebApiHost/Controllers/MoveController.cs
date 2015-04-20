@@ -10,11 +10,11 @@ namespace BadPony.WebApiHost.Controllers
 {
     public class MoveController : ApiController
     {
-        public void Get(int id)
+        public void Post(int objectId, int destinationId)
         {
             // Hardcoded to move the first player
             var player = Program.Game.GetAllObjects().OfType<Player>().FirstOrDefault();
-            Program.Game.PostMessage(new MoveObjectMessage {DestinationId = id, ObjectId = player.Id});
+            Program.Game.PostMessage(new MoveObjectMessage {DestinationId = destinationId, ObjectId = player.Id});
         }
     }
 }

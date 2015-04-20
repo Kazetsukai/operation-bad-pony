@@ -19,7 +19,13 @@ namespace BadPony.WebApiHost
             config.Routes.MapHttpRoute(
                 name: "DefaultWebApi",
                 routeTemplate: "api/{controller}/{id}",
-                defaults: new {id = RouteParameter.Optional}
+                defaults: new { id = RouteParameter.Optional }
+            ); 
+
+            config.Routes.MapHttpRoute(
+                 name: "MoveController",
+                 routeTemplate: "api/Move/{objectId}/{destinationId}",
+                 defaults: new { controller = "Move" }
             );
             app.UseWebApi(config);
         }

@@ -33,11 +33,27 @@ namespace BadPony.Core
                 Description = "You are in a dark alleyway. Foul smells mix together from nearby dumpsters and air-conditioning vents." ,
             };
 
+            Location pizzeria = new Location()
+            {
+                Name = "Back of Fat Tony's Pizzeria",
+                Description = "You are in the back of Fat Tony's Pizzeria. Around you there are several health codes being broken.",
+            };
+
+            GameObject doorOut = new Door
+            {
+                Name = "Door out to the alleyway",
+                Description = "A large service door leads to the alleyway out back",
+                ContainerId = pizzeria.Id,
+                DestinationId = backAlley.Id
+
+            };
+
             GameObject door = new Door()
             {
                 Name = "Door to Fat Tony's Pizzeria",
                 Description = "A large service door for inward goods. You suspect it was once painted white.",
-                ContainerId = backAlley.Id
+                ContainerId = backAlley.Id,
+                DestinationId = pizzeria.Id
             };
 
             GameObject bin = new Item()
@@ -52,7 +68,9 @@ namespace BadPony.Core
                     theVoid, 
                     backAlley,
                     door,
-                    bin
+                    bin,
+                    pizzeria,
+                    doorOut
                 }
             );
         }

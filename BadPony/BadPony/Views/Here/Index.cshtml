@@ -16,7 +16,7 @@
 @foreach (var item in ViewBag.Location.Exits)
 {
     <div class="object">
-        <h4>@item.Name</h4>
+        <a href="/Here" data-id="@item.DestinationId" class="action"><h4>@item.Name</h4></a>
         <p>@item.Description</p>
     </div>
 }
@@ -29,3 +29,15 @@
     </div>
 }
 <div style="clear:both"></div>
+
+<script>
+    setTimeout(function () {
+        var $ = jQuery;
+        $(function() {
+            $('.action').click(function(e) {
+                var id = $(this).attr('data-id');
+                $.ajax("/api/Move/" + id, { async: false });
+            })
+        });
+    }, 1000);
+</script>
