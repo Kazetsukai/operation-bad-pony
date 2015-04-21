@@ -5,29 +5,26 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 using BadPony.Core;
+using NLog;
 
 namespace BadPony.WebApiHost.Controllers
 {
     public class LocationController : ApiController
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
         public LocationView Get(int id = 0)
         {
-            Console.WriteLine("{0}:\tLocation {1} requested", DateTime.Now, id);
+            logger.Debug("\tLocation {0} requested", id);
             GameObject requestedLocation = Program.Game.GetObject(id);
             if (requestedLocation != null)
             {
-                var view = new LocationView(requestedLocation);
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("\tSuccess: Retrieved - {0}", requestedLocation.Name);
-                Console.ForegroundColor = ConsoleColor.Gray;
-                
+                var view = new LocationView(requestedLocation);                
+                logger.Debug("\tSuccess: Retrieved - {0}", requestedLocation.Name);               
                 return view;
             }
-
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("\tFailed: Location {0} does not exist.", id);
-            Console.ForegroundColor = ConsoleColor.Gray;
-
+            
+            logger.Error("\tFailed: Location {0} does not exist.", id);
+            
             throw new HttpResponseException(HttpStatusCode.NotFound);
         }
     }

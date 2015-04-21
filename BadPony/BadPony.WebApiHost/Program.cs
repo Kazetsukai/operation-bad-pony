@@ -7,21 +7,40 @@ using System.Text;
 using System.Threading.Tasks;
 using BadPony.Core;
 using Microsoft.Owin.Hosting;
+using NLog;
 
 namespace BadPony.WebApiHost
 {
     public class Program
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+        
         public static Game Game;
 
         public static void Main(string[] args)
         {
+            string prompt = "BP: ";
+            logger.Info("\tWebApiHost started");
             Game = new Game();
 
             var url = "http://localhost:9090";
             WebApp.Start<Startup>(url);
             Console.WriteLine("WebApi self-host running at " + url + "...");
-            Console.ReadLine();
+            bool exit = false;
+            while (!exit)
+            {
+                Console.Write(prompt);
+                string command = Console.ReadLine();
+                switch(command)
+                {
+                    case "exit":
+                        exit = true;
+                        break;
+                    default:
+                        continue;
+                }
+            }
+
         }
 
          
