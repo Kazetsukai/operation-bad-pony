@@ -1,31 +1,14 @@
 ﻿<!DOCTYPE html>
 
-<html lang="en" ng-app>
+<html lang="en" ng-app="badpony">
 <head>
     <meta charset="utf-8" />
     <title>Game</title>
-    <script src="js/angular.min.js"></script>
+    <script src="assets/js/angular.min.js"></script>
+    <script src="components/main.js"></script>
+    <script src="components/location/locationController.js"></script>
 </head>
 <body>
-
-    <h2>{{'Lol ' + 'technically ' + 'angular!'}}</h2>
-    <p>@ViewBag.Location.Description</p>
-    <h3>Items</h3>
-    <div class="object">
-        <h4>@item.Name</h4>
-        <p>@item.Description</p>
-    </div>
-    <div style="clear:both"></div>
-    <h3>Exits</h3>
-    <div class="object">
-        <a data-id="@item.DestinationId" class="action"><h4>@item.Name</h4></a>
-        <p>@item.Description</p>
-    </div>
-    <div style="clear:both"></div>
-    <h3>Players Nearby</h3>
-    <div class="player">
-        <p>@item.Name</p>
-    </div>
-    <div style="clear:both"></div>
+    <div ng-include="'components/location/locationView.html'" ></div>
 </body>
 </html>

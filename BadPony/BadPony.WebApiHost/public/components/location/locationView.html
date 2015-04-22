@@ -1,0 +1,20 @@
+﻿<script src="components/location/locationController.js"></script>
+
+<div ng-controller='LocationController'>
+    <h2>{{ location.Name }}</h2>
+    <p>{{ location.Description }}</p>
+    <h3>Items</h3>
+    <div class="object" ng-repeat="obj in location.Contents">
+        <h4>{{ obj.Name }}</h4>
+        <p>{{ obj.Description }}</p>
+    </div>
+    <h3>Exits</h3>
+    <div class="object" ng-repeat="obj in location.Exits">
+        <a data-id="@item.DestinationId" class="action"><h4>{{ obj.Name }}</h4></a>
+        <p>{{ obj.Description }}</p>
+    </div>
+    <h3>Players Nearby</h3>
+    <div class="player" ng-repeat="obj in location.Players">
+        <p>{{ obj.Name }}</p>
+</div>
+</div>
