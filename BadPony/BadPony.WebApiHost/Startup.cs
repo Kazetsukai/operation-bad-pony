@@ -4,6 +4,8 @@ using System.Web.Http;
 using Microsoft.Owin;
 using Owin;
 using System.Net.Http.Formatting;
+using Microsoft.Owin.StaticFiles;
+using Microsoft.Owin.FileSystems;
 
 [assembly: OwinStartup(typeof(BadPony.WebApiHost.Startup))]
 
@@ -20,13 +22,15 @@ namespace BadPony.WebApiHost
                 name: "DefaultWebApi",
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
-            ); 
-
-            config.Routes.MapHttpRoute(
-                 name: "MoveController",
-                 routeTemplate: "api/Move/{objectId}/{destinationId}",
-                 defaults: new { controller = "Move" }
             );
+
+            app.UseFileServer(new FileServerOptions
+            {
+                RequestPath = new PathString(string.Empty),
+                FileSystem = new PhysicalFileSystem("./public"),
+                EnableDirectoryBrowsing = true,
+            });
+
             app.UseWebApi(config);
         }
     }
