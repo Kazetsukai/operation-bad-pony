@@ -10,7 +10,7 @@
     </div>
     <h3>Exits</h3>
     <div class="object" ng-repeat="obj in location.Exits">
-        <a data-id="@item.DestinationId" class="action"><h4>{{ obj.Name }}</h4></a>
+        <a data-id="@item.DestinationId" class="action" href="#" ng-click="go(obj.DestinationId)"><h4>{{ obj.Name }}</h4></a>
         <p>{{ obj.Description }}</p>
     </div>
     <h3>Players Nearby</h3>

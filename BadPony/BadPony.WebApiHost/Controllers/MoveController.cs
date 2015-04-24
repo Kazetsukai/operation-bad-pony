@@ -13,12 +13,10 @@ namespace BadPony.WebApiHost.Controllers
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
-        public void Post(int objectId, int destinationId)
+        public void Post(MoveObjectMessage message)
         {
-            // Hardcoded to move the first player
-            var player = Program.Game.GetAllObjects().OfType<Player>().FirstOrDefault();
-            Program.Game.PostMessage(new MoveObjectMessage {DestinationId = destinationId, ObjectId = player.Id});
-            logger.Debug("\tPlayer: {0} moved to Location: {1}", player.Id, destinationId);
+            Program.Game.PostMessage(message);
+            logger.Debug("\tObject: {0} moved to Location: {1}", message.ObjectId, message.DestinationId);
         }
     }
 }

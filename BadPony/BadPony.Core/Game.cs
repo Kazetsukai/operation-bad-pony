@@ -63,6 +63,13 @@ namespace BadPony.Core
                 ContainerId = backAlley.Id
             };
 
+            Player defaultPlayer = new Player()
+            {
+                Name = "Default",
+                ContainerId = backAlley.Id,
+                UserName = "Default"
+            };
+
             _gameObjects.AddRange(
                 new[] {                    
                     theVoid, 
@@ -70,7 +77,8 @@ namespace BadPony.Core
                     door,
                     bin,
                     pizzeria,
-                    doorOut
+                    doorOut,
+                    defaultPlayer
                 }
             );
         }

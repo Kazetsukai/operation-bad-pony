@@ -1,1 +1,1 @@
-﻿var app = angular.module('badpony', []);
+﻿var app = angular.module('badpony', ['ngRoute']);

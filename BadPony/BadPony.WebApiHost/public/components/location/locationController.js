@@ -1,7 +1,26 @@
 ﻿app.controller('LocationController', function ($scope, $http) {
     $http({
-        url: "api/Location/1"
-    }).success(function(data, status, headers, config) {
-        $scope.location = data;
+        url: "api/Player/Default"
+    }).success(function (data, status, headers, config) {
+        var player = data;
+        $scope.player = player;
+
+        if (data) {
+            $http({
+                url: "api/Location/" + data.ContainerId
+            }).success(function(data, status, headers, config) {
+                $scope.location = data;
+            });
+
+            $scope.go = function (id) {
+
+                $http.post("api/Move", { objectId: player.Id, destinationId: id })
+                .success(function (data, status, headers, config) {
+                    // TODO: Replace this with the Angular way of reloading the controller.
+                    location.reload();
+                });
+            }
+        }
     });
+    
 });
