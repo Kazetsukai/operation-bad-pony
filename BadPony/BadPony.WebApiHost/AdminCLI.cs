@@ -55,7 +55,7 @@ namespace BadPony.WebApiHost
 
         private static void displayPony(string[] command)
         {
-            if (command.Length > 1 && command[1] == "pony")
+            if (command.Length > 1 && command[1] == "pony" || command[1] == "brony")
             {                
                 LoadArt(command[1]);
             }
@@ -129,6 +129,31 @@ namespace BadPony.WebApiHost
                 foreach (Player player in players)
                 {
                     Console.WriteLine(player.Id + "\t" + player.Name + "\t\t" + player.UserName +"\t\t"+ game.GetObject(player.ContainerId).Name);
+                }
+            }
+            else if (command[1] == "locations")
+            {
+                Console.WriteLine("ID\tName\t\t\tExits\n-----------------------------------------------------------");
+                List<Location> locations = game.GetAllObjects().OfType<Location>().ToList();
+                foreach(Location location in locations)
+                {
+                    string output = location.Id + "\t" + location.Name + "\t\t\t";
+                    List<Door> exits = game.GetContainedObjects(location.Id).OfType<Door>().ToList();
+                    foreach (var exit in exits)
+                    {
+                        output += exit.Id + ", ";
+                    }
+                    output = output.Remove(output.Length - 2);
+                    Console.WriteLine(output);
+                }
+            }
+            else if(command[1] == "doors")
+            {
+                Console.WriteLine("ID\tName\t\t\tLocations\n-----------------------------------------------------------");
+                List<Door> doors = game.GetAllObjects().OfType<Door>().ToList();
+                foreach (var door in doors)
+                {
+                    Console.WriteLine(door.Id + "\t" + door.Name + "\t" + game.GetObject(door.DestinationId).Name);                    
                 }
             }
 
