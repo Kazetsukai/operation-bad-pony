@@ -6,6 +6,7 @@ using System.Runtime.Remoting.Messaging;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using NLog;
 
 namespace BadPony.Core
 {
@@ -13,14 +14,23 @@ namespace BadPony.Core
     {
         private List<GameObject> _gameObjects = new List<GameObject>();
         private object _lockObject = new object();
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         public Game()
         {
+            logger.Info("\tCORE\t==============================");
+            logger.Info("\tCORE\tSetting up world");
             TemporaryHardcodedWorldSetup();
+            logger.Info("\tCORE\tWorld generation complete");
+            logger.Info("\tCORE\t==============================");
         }
 
         private void TemporaryHardcodedWorldSetup()
         {
+            logger.Info("\tCORE\t!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            logger.Info("\tCORE\t! Temporary hardcoded world  !");
+            logger.Info("\tCORE\t!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            logger.Info("\tCORE\t\t- Creating Locations....");
             Location theVoid = new Location()
             {
                 Name = "The void",
@@ -39,6 +49,8 @@ namespace BadPony.Core
                 Description = "You are in the back of Fat Tony's Pizzeria. Around you there are several health codes being broken.",
             };
 
+            logger.Info("\tCORE\t\t- Creating Doors");
+
             GameObject doorOut = new Door
             {
                 Name = "Door out to the alleyway",
@@ -56,6 +68,8 @@ namespace BadPony.Core
                 DestinationId = pizzeria.Id
             };
 
+            logger.Info("\tCORE\t\t- Creating Items");
+
             GameObject bin = new Item()
             {
                 Name = "Smelly old bin",
@@ -63,12 +77,16 @@ namespace BadPony.Core
                 ContainerId = backAlley.Id
             };
 
+            logger.Info("\tCORE\t\t- Creating Default Player");
+
             Player defaultPlayer = new Player()
             {
                 Name = "Default",
                 ContainerId = backAlley.Id,
                 UserName = "Default"
             };
+
+            logger.Info("\tCORE\t\t- Populating Game Object List");
 
             _gameObjects.AddRange(
                 new[] {                    
@@ -81,22 +99,27 @@ namespace BadPony.Core
                     defaultPlayer
                 }
             );
+
+            
         }
 
         public IEnumerable<GameObject> GetAllObjects()
         {
+            logger.Debug("\tCORE\tGetting all objects");
             lock (_lockObject)
                 return _gameObjects.ToList();
         }
 
         public IEnumerable<GameObject> GetContainedObjects(int containerId)
         {
+            logger.Debug("\tCORE\tGetting contained objects {0}", containerId);
             lock (_lockObject)
                 return _gameObjects.Where(g => g.ContainerId == containerId).ToList();
         }
 
         public GameObject GetObject(int id)
         {
+            logger.Debug("\tCORE\tGetting object {0}", id);
             // Super inefficient, but simplest approach for now.
             lock (_lockObject)
                 return _gameObjects.FirstOrDefault(g => g.Id == id);
@@ -104,12 +127,14 @@ namespace BadPony.Core
 
         public Player GetPlayerByUsername(string userName)
         {
+            logger.Debug("\tCORE\tGetting user {0}", userName);
             lock (_lockObject)
                 return _gameObjects.OfType<Player>().FirstOrDefault(p => String.Equals(p.UserName, userName, StringComparison.InvariantCultureIgnoreCase));
         }
 
         public bool PostMessage(IGameMessage message)
         {
+            logger.Debug("\tCORE\tMessage: {0}", message.ToString());
             // Dispatch messages at some point.
             if (message is CreateNewPlayerMessage)
             {

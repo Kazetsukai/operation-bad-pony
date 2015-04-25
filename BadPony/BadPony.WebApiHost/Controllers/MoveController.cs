@@ -16,7 +16,7 @@ namespace BadPony.WebApiHost.Controllers
         public void Post(MoveObjectMessage message)
         {
             Program.Game.PostMessage(message);
-            logger.Debug("\tObject: {0} moved to Location: {1}", message.ObjectId, message.DestinationId);
+            logger.Debug("\tWAPI\tObject: {0} moved to Location: {1}", message.ObjectId, message.DestinationId);
         }
     }
 }

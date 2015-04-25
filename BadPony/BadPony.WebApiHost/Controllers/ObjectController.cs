@@ -15,7 +15,7 @@ namespace BadPony.WebApiHost.Controllers
 
         public GameObject Get(int id)
         {
-            logger.Debug("\tRequested object: {0}", id);
+            logger.Debug("\tWAPI\tRequested object: {0}", id);
             return Program.Game.GetObject(id);
         }
     }

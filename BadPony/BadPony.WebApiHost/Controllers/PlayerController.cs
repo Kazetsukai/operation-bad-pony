@@ -15,7 +15,7 @@ namespace BadPony.WebApiHost.Controllers
 
         public Player Get(string id)
         {
-            logger.Debug("\tRetrieved player {0}", id);
+            logger.Debug("\tWAPI\tRetrieved player {0}", id);
             return Program.Game.GetPlayerByUsername(id);
         }
 
@@ -23,7 +23,7 @@ namespace BadPony.WebApiHost.Controllers
         {
             if (id != null)
             {
-                logger.Debug("\tSent player {0}", id);
+                logger.Debug("\tWAPI\tSent player {0}", id);
                 Program.Game.PostMessage(new CreateNewPlayerMessage() { UserName = id, Name = id, Type = GameObjectType.Player });
             }
         }

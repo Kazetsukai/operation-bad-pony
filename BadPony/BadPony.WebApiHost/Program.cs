@@ -19,30 +19,16 @@ namespace BadPony.WebApiHost
 
         public static void Main(string[] args)
         {
-            string prompt = "BP: ";
-            logger.Info("\tWebApiHost started");
+            logger.Info("\tWAPI\tWebApiHost started");
             Game = new Game();
 
             var url = "http://localhost:9090";
             WebApp.Start<Startup>(url);
             Console.WriteLine("WebApi self-host running at " + url + "...");
-            bool exit = false;
-            while (!exit)
-            {
-                Console.Write(prompt);
-                string command = Console.ReadLine();
-                switch(command)
-                {
-                    case "exit":
-                        exit = true;
-                        break;
-                    default:
-                        continue;
-                }
-            }
-
-        }
-
-         
+            logger.Info("\tWAPI\tStarting CLI");
+            AdminCLI cli = new AdminCLI();
+            cli.StartCLI(Game);
+            logger.Info("\tWAPI\tGame over!!! - Please insert 50c to play again.");
+        }   
     }
 }
