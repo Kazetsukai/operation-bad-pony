@@ -112,6 +112,12 @@
     <Content Include="public\components\main.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="public\components\player\playerController.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="public\components\player\playerView.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="public\index.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -13,10 +13,10 @@ namespace BadPony.WebApiHost.Controllers
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
-        public Player Get(string username)
+        public Player Get(string id)
         {
-            logger.Debug("\tWAPI\tRetrieved player {0}", username);
-            return Program.Game.GetPlayerByUsername(username);
+            logger.Debug("\tWAPI\tRetrieved player {0}", id);
+            return Program.Game.GetPlayerByUsername(id);
         }
 
         public void Post(string id)
