@@ -8,7 +8,5 @@ app.config(function ($routeProvider, $locationProvider) {
     .when("/", {
         controller: "LocationController",
         templateUrl: "/components/location/locationView.html"
-    });
-
-    
+    });    
 });

@@ -3,6 +3,11 @@
 <div ng-controller='LocationController'>
     <h2>{{ location.Name }}</h2>
     <p>{{ location.Description }}</p>
+    <h3>Jobs</h3>
+    <div class="object" ng-repeat="obj in location.Jobs">
+        <p>{{obj.Name}} - AP Cost = {{obj.APCost}} Pay = ${{obj.Pay}}</p>
+        <a data-id="obj.Id" class="action" href="#" ng-click="job(obj.Id)">Work</a>
+    </div>
     <h3>Items</h3>
     <div class="object" ng-repeat="obj in location.Contents">
         <h4>{{ obj.Name }}</h4>
@@ -15,6 +20,7 @@
     </div>
     <h3>Players Nearby</h3>
     <div class="player" ng-repeat="obj in location.Players">
-        <p>{{ obj.Name }}</p>
+        <p>{{ obj.Name }} - Current AP = {{obj.ActionPoints}} Current Cash = ${{obj.Cash}}</p>
 </div>
+    {{result}}
 </div>

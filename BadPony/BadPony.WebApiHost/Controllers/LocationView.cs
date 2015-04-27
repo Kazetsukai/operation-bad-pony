@@ -12,6 +12,7 @@ namespace BadPony.WebApiHost.Controllers
         {
             Contents = new List<Item>();
             Players = new List<Player>();
+            Jobs = new List<Job>();
             Exits = new List<Door>();
         }
 
@@ -26,6 +27,7 @@ namespace BadPony.WebApiHost.Controllers
 
                 Contents = everything.OfType<Item>();
                 Players = everything.OfType<Player>();
+                Jobs = everything.OfType<Job>();
                 Exits = everything.OfType<Door>();
             }
             else
@@ -43,6 +45,7 @@ namespace BadPony.WebApiHost.Controllers
 
         public IEnumerable<Item> Contents { get; set; }
         public IEnumerable<Player> Players { get; set; }
+        public IEnumerable<Job> Jobs { get; set; }
         public IEnumerable<Door> Exits { get; set; }
     }
 }

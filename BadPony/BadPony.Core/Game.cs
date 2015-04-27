@@ -15,6 +15,7 @@ namespace BadPony.Core
         private List<GameObject> _gameObjects = new List<GameObject>();
         private object _lockObject = new object();
         private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static int DailyAP = 48;
 
         public Game()
         {
@@ -77,13 +78,23 @@ namespace BadPony.Core
                 ContainerId = backAlley.Id
             };
 
-            logger.Info("\tCORE\t\t- Creating Default Player");
+            logger.Info("\tCORE\t\t- Creating Jobs");
 
-            Player defaultPlayer = new Player()
+            GameObject washDishes = new Job()
+            {
+                Name = "Wash Dishes",
+                APCost = 2,
+                Pay = 5,
+                ContainerId = pizzeria.Id
+            };
+
+            logger.Info("\tCORE\t\t- Creating Default Player");
+            
+            CreateNewPlayerMessage defaultPlayer = new CreateNewPlayerMessage()
             {
                 Name = "Default",
-                ContainerId = backAlley.Id,
-                UserName = "Default"
+                UserName = "Default",
+                Description = "An average looking man, dressed in average clothing. Completely unremarkable and unlikely to be remembered."
             };
 
             logger.Info("\tCORE\t\t- Populating Game Object List");
@@ -96,11 +107,11 @@ namespace BadPony.Core
                     bin,
                     pizzeria,
                     doorOut,
-                    defaultPlayer
+                    washDishes
                 }
             );
 
-            
+            PostMessage(defaultPlayer);            
         }
 
         public IEnumerable<GameObject> GetAllObjects()
@@ -143,7 +154,10 @@ namespace BadPony.Core
                 {
                     UserName = m.UserName,
                     Name = m.Name,
+                    Description = m.Description,
                     ContainerId = 1,
+                    ActionPoints = DailyAP,
+                    Cash = 0
                 };
 
                 _gameObjects.Add(player);
@@ -164,6 +178,25 @@ namespace BadPony.Core
 
                 obj.ContainerId = m.DestinationId;
             }
+            else if (message is DoJobMessage)
+            {
+                var m = (DoJobMessage)message;
+
+                Job job = (Job)GetObject(m.JobId);
+                Player player = (Player)GetObject(m.PlayerId);
+
+                if (player.ContainerId == job.ContainerId && player.ActionPoints >= job.APCost)
+                {
+                    player.ActionPoints -= job.APCost;
+                    player.Cash += job.Pay;
+                    return true;
+                }
+                else
+                {
+                    //trying to do a job from the wrong location or with too few AP remaining
+                    return false;
+                }
+            }
 
             return false;
         }
@@ -174,5 +207,11 @@ namespace BadPony.Core
         public int ObjectId { get; set; }
         public int DestinationId { get; set; }
         public int? OriginId { get; set; }
+    }
+
+    public class DoJobMessage : IGameMessage
+    {
+        public int JobId { get; set; }
+        public int PlayerId { get; set; }
     }
 }

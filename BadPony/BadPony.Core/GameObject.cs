@@ -7,7 +7,8 @@ namespace BadPony.Core
         Location,
         Player,
         Door,
-        Item
+        Item,
+        Job
     }
 
     public abstract class GameObject

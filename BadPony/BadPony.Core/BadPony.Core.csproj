@@ -50,6 +50,7 @@
     <Compile Include="GameObject.cs" />
     <Compile Include="IGameMessage.cs" />
     <Compile Include="Item.cs" />
+    <Compile Include="Job.cs" />
     <Compile Include="Location.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
