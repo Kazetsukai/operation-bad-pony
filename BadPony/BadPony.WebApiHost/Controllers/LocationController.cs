@@ -14,16 +14,16 @@ namespace BadPony.WebApiHost.Controllers
         private static Logger logger = LogManager.GetCurrentClassLogger();
         public LocationView Get(int id = 0)
         {
-            logger.Debug("\tLocation {0} requested", id);
+            logger.Debug("\tWAPI\tLocation {0} requested", id);
             GameObject requestedLocation = Program.Game.GetObject(id);
             if (requestedLocation != null)
-            {
-                var view = new LocationView(requestedLocation);                
-                logger.Debug("\tSuccess: Retrieved - {0}", requestedLocation.Name);               
+            {                
+                var view = new LocationView(requestedLocation);
+                logger.Debug("\tWAPI\tSuccess: Retrieved - {0}", requestedLocation.Name);               
                 return view;
             }
-            
-            logger.Error("\tFailed: Location {0} does not exist.", id);
+
+            logger.Error("\tWAPI\tFailed: Location {0} does not exist.", id);
             
             throw new HttpResponseException(HttpStatusCode.NotFound);
         }
