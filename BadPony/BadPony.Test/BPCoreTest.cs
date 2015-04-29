@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Policy;
 using NUnit.Framework;
 using BadPony.Core;
 
@@ -9,17 +10,16 @@ namespace BadPony.Test
     [TestFixture]
     public class BPCoreTest
     {
-        private string name = "Test";
-        private string userName = "TestUser";
-        private int containerId = 0;
-        private string description = "Test description";
-        private Game game = new Game();
-        private int initialObjectCount;
+        private const string name = "Test";
+        private const string userName = "TestUser";
+        private const int containerId = 0;
+        private const string description = "Test description";
 
         [Test]
         public void TestCreatePlayerMessage()
         {
-            initialObjectCount = game.GetAllObjects().OfType<Player>().ToList().Count;
+            var game = CreateTestGame();
+            var initialObjectCount = game.GetAllObjects().OfType<Player>().ToList().Count;
             
             CreateNewPlayerMessage playerMessage = new CreateNewPlayerMessage
             {
@@ -32,9 +32,19 @@ namespace BadPony.Test
             Assert.IsNotNull(game.GetPlayerByUsername(userName), "User " + userName + " was not found");
         }
 
+        private Game CreateTestGame()
+        {
+            var game = new Game();
+
+            return game;
+        }
+
         [Test]
         public void TestMoveObjectMessage()
-        {            
+        {
+            var game = CreateTestGame();
+            var initialObjectCount = game.GetAllObjects().OfType<Player>().ToList().Count;
+            
             List<Location> locations = game.GetAllObjects().OfType<Location>().ToList();
             Location backAlley = locations.Where(l => l.Name == "Back alley").First();
             Location backOfTonys = locations.Where(l => l.Name == "Back of Fat Tony's Pizzeria").First();
@@ -54,10 +64,21 @@ namespace BadPony.Test
         [Test]
         public void TestGetAllObjects()
         {
+            var game = CreateTestGame();
+            var initialObjectCount = game.GetAllObjects().OfType<Player>().ToList().Count;
+            
             initialObjectCount = game.GetAllObjects().ToList().Count;
             List<GameObject> objects = game.GetAllObjects().ToList();
             Assert.IsNotNull(objects, "No objects were returned");
             Assert.AreEqual(initialObjectCount, objects.Count, "Incorrect number of GameObjects returned");
+        }
+
+        [Test]
+        public void TestSetPropertyMessage()
+        {
+            var game = CreateTestGame();
+            var initialObjectCount = game.GetAllObjects().OfType<Player>().ToList().Count;
+            
         }
     }
 }
