@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace BadPony.Core
@@ -19,6 +20,7 @@ namespace BadPony.Core
         public GameObject()
         {
             Id = GetNextId();
+            Properties = new Dictionary<string, string>();
         }
 
         public int Id { get; private set; }
@@ -26,6 +28,7 @@ namespace BadPony.Core
         public string Description { get; set; }
         public int ContainerId { get; set; }
         public abstract GameObjectType Type { get ; }
+        public Dictionary<string, string> Properties { get; private set; }
 
         // Threadsafe ID generation
         private static int GetNextId()

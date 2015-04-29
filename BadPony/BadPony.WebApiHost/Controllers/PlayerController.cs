@@ -24,7 +24,7 @@ namespace BadPony.WebApiHost.Controllers
             if (id != null)
             {
                 logger.Debug("\tWAPI\tSent player {0}", id);
-                Program.Game.PostMessage(new CreateNewPlayerMessage() { UserName = id, Name = id, Type = GameObjectType.Player });
+                Program.Game.PostMessage(new CreateNewPlayerMessage() { UserName = id, Name = id });
             }
         }
     }

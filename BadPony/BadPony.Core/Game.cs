@@ -139,6 +139,19 @@ namespace BadPony.Core
 
                 obj.ContainerId = m.DestinationId;
             }
+            else if (message is SetPropertyMessage)
+            {
+                var m = (SetPropertyMessage) message;
+
+                var obj = GetObject(m.ObjectId);
+
+                if (obj.Properties.ContainsKey(m.Property))
+                {
+                    obj.Properties.Remove(m.Property);
+                }
+
+                obj.Properties.Add(m.Property, m.Value);
+            }
 
             return false;
         }
