@@ -43,6 +43,9 @@ namespace BadPony.WebApiHost
                         case "list":
                             displayList(command, game);
                             break;
+                        case "web":
+                            System.Diagnostics.Process.Start("http://localhost:9090");
+                            break;
                         default:
                             Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine("{0} is not a known command. Type help for a list of available commands.", command[0]);
