@@ -33,11 +33,7 @@ namespace BadPony.WebApiHost
                     {
                         case "bad":
                             displayPony(command);
-                            break;
-                        case "dt":
-                            List<string[]> list = new List<string[]> { new string[] { "12345678", "123", "2312333123123123123213", "test" }, new string[] { "126789", "12312", "312312", "234" }, new string[] { "123", "21312", "12", "234" } };
-                            drawTable(new string[4] { "1234", "4325", "2344", "test" }, list);
-                            break;
+                            break;                        
                         case "exit":
                             logger.Info("\tWAPI\tExit command entered on CLI");
                             exit = true;
