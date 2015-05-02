@@ -14,6 +14,8 @@ namespace BadPony.Core
         private List<GameObject> _gameObjects = new List<GameObject>();
         private object _lockObject = new object();
 
+        private static int DailyAP = 48;
+
         public Game()
         {
             TemporaryHardcodedWorldSetup();
@@ -70,6 +72,14 @@ namespace BadPony.Core
                 UserName = "Default"
             };
 
+            GameObject washDishes = new Job()
+            {
+                Name = "Wash Dishes",
+                APCost = 2,
+                Pay = 5,
+                ContainerId = pizzeria.Id
+            };
+
             _gameObjects.AddRange(
                 new[] {                    
                     theVoid, 
@@ -78,7 +88,8 @@ namespace BadPony.Core
                     bin,
                     pizzeria,
                     doorOut,
-                    defaultPlayer
+                    defaultPlayer,
+                    washDishes
                 }
             );
         }
@@ -155,5 +166,6 @@ namespace BadPony.Core
 
             return false;
         }
+
     }
 }
