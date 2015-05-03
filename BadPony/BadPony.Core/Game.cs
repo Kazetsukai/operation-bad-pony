@@ -6,6 +6,7 @@ using System.Runtime.Remoting.Messaging;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.ClearScript.V8;
 
 namespace BadPony.Core
 {
@@ -92,6 +93,18 @@ namespace BadPony.Core
                     washDishes
                 }
             );
+
+            PostMessage(new SetPropertyMessage
+            {
+                ObjectId = defaultPlayer.Id,
+                PropertyName = "lol",
+                Value = "msg.Send(\"testing lol\")"
+            });
+            PostMessage(new ExecutePropertyMessage
+            {
+                ObjectId = defaultPlayer.Id,
+                PropertyName = "lol"
+            });
         }
 
         public IEnumerable<GameObject> GetAllObjects()
@@ -149,6 +162,8 @@ namespace BadPony.Core
                 }
 
                 obj.ContainerId = m.DestinationId;
+
+                return true;
             }
             else if (message is SetPropertyMessage)
             {
@@ -156,16 +171,54 @@ namespace BadPony.Core
 
                 var obj = GetObject(m.ObjectId);
 
-                if (obj.Properties.ContainsKey(m.Property))
+                if (obj.Properties.ContainsKey(m.PropertyName))
                 {
-                    obj.Properties.Remove(m.Property);
+                    obj.Properties.Remove(m.PropertyName);
                 }
 
-                obj.Properties.Add(m.Property, m.Value);
+                obj.Properties.Add(m.PropertyName, m.Value);
+
+                return true;
+            }
+            else if (message is ExecutePropertyMessage)
+            {
+                var m = (ExecutePropertyMessage) message;
+
+                var obj = GetObject(m.ObjectId);
+
+                if (obj.Properties.ContainsKey(m.PropertyName))
+                {
+                    var code = obj.Properties[m.PropertyName];
+
+                    try
+                    {
+                        if (code != null)
+                        {
+                            var engine = new V8ScriptEngine(V8ScriptEngineFlags.DisableGlobalMembers);
+
+                            engine.AddHostObject("msg", new MessageHost());
+                            engine.Execute(code);
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        return false;
+                    }
+
+                    return true;
+                }
             }
 
             return false;
         }
 
+    }
+
+    public class MessageHost
+    {
+        public void Send(string message)
+        {
+            Console.WriteLine(message);
+        }
     }
 }

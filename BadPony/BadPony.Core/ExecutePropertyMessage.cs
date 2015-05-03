@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace BadPony.Core
 {
-    public class SetPropertyMessage : IGameMessage
+    public class ExecutePropertyMessage : IGameMessage
     {
-        public int ObjectId { get; set; }
         public string PropertyName { get; set; }
-        public string Value { get; set; }
+        public int ObjectId { get; set; }
     }
 }
