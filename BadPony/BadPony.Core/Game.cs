@@ -194,9 +194,16 @@ namespace BadPony.Core
                     {
                         if (code != null)
                         {
+                            // This is the core of the javascript magic
+                            // We spin up a new v8 engine, initiliase a bunch of relevant properties, and run the script
+                            // We create a new v8 engine each time so one piece of code can't mess with other code.
                             var engine = new V8ScriptEngine(V8ScriptEngineFlags.DisableGlobalMembers);
 
                             engine.AddHostObject("msg", new MessageHost());
+
+                            foreach (var prop in obj.Properties)
+                                engine.Script["$" + prop.Key] = prop.Value;
+
                             engine.Execute(code);
                         }
                     }
