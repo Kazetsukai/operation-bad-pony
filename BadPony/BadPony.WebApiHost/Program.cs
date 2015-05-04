@@ -22,7 +22,7 @@ namespace BadPony.WebApiHost
             logger.Info("\tWAPI\tWebApiHost started");
             Game = new Game();
 
-            var url = "http://localhost:9090";
+            var url = "http://+:9090";
             WebApp.Start<Startup>(url);
             Console.WriteLine("WebApi self-host running at " + url + "...");
             logger.Info("\tWAPI\tStarting CLI");
