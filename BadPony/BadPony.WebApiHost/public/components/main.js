@@ -1,12 +1,21 @@
-﻿var app = angular.module('badpony', ['ngRoute']);
+﻿/// <reference path="_app.ts" />
+var BadPony;
+(function (BadPony) {
+    (function (WebClient) {
+        'use strict';
 
-app.config(function ($routeProvider, $locationProvider) {
-    $routeProvider.when("/player/:id", {
-        controller: "PlayerController",
-        templateUrl: "/components/player/playerView.html"
-    })
-    .when("/", {
-        controller: "LocationController",
-        templateUrl: "/components/location/locationView.html"
-    });    
-});
+        var badponyApp = angular.module('badpony', [
+            'ngRoute',
+            'bpLocationController'
+        ]);
+
+        badponyApp.config(function ($routeProvider, $locationProvider) {
+            $routeProvider.when("/", {
+                controller: "LocationController",
+                templateUrl: "/components/views/LocationView.html"
+            });
+        });
+    })(BadPony.WebClient || (BadPony.WebClient = {}));
+    var WebClient = BadPony.WebClient;
+})(BadPony || (BadPony = {}));
+//# sourceMappingURL=main.js.map

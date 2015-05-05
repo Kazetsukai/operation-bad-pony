@@ -3,17 +3,18 @@
 <html lang="en" ng-app="badpony">
 <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Game</title>
-    <script src="assets/js/angular.min.js"></script>
-    <script src="assets/js/angular-route.min.js"></script>
-    <script src="components/main.js"></script>
-    <script src="components/player/playercontroller.js"></script>
-    <script src="components/location/locationController.js"></script>
+    <script src="/assets/js/angular.min.js"></script>
+    <script src="/assets/js/angular-route.min.js"></script>
+    <script src="/components/main.js"></script>
+    <script src="/components/models/GameObjectModel.js"></script>
+    <script src="/components/models/LocationModel.js"></script>
+    <script src="/components/controllers/LocationController.js"></script>
 
+    <link type="text/css" rel="stylesheet" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css" />
 </head>
-<body>
-    <!--<div ng-include="'components/location/locationView.html'"></div>
-    <div ng-include="'components/player/playerView.html'" ></div>-->
-    <div ng-view=""></div>
+<body ng-view="">
 </body>
 </html>

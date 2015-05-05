@@ -1,0 +1,25 @@
+﻿<div class="game-area">
+    <h1>{{ location.Name }}</h1>
+    <p>{{ location.Description }}</p>
+    <div ng-repeat="objGroup in location.LocationObjects" class="gameobject-group" ng-attr-id="{{objGroup.Key + 'Group'}}">
+        <h2>{{objGroup.Key}}</h2>
+        <ul>
+            <li ng-repeat="obj in objGroup.Value" ng-class="{selected: location.SelectedItem == obj}">
+                <button ng-click="location.SelectObject(obj)"><h3>{{obj.Name}}</h3></button>
+                <div class="gameobject-info">
+                    <h3>{{obj.Name}}</h3>
+                    <p>{{obj.Description}}</p>
+                    <ul ng-if="obj.Actions && obj.Actions.length">
+                        <li ng-repeat="action in obj.Actions">
+                            <button ng-click="doAction(action)">
+                                <h4>{{action.Name}}</h4>
+                                <p ng-if="action.Description">{{action.Description}}</p>
+                            </button>
+                        </li>
+                    </ul>
+                    <button ng-click="location.SelectObject(null)">Close</button>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
