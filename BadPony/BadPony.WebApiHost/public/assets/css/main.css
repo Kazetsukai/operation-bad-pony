@@ -152,7 +152,7 @@ body {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  padding: 0 0 0 12px;
+  padding: 0;
   -moz-transition: background-color 0.1s ease-in-out;
   -o-transition: background-color 0.1s ease-in-out;
   -webkit-transition: background-color 0.1s ease-in-out;
@@ -161,6 +161,12 @@ body {
 .gameobject-group .gameobject-info > button:hover {
   background-image: url('/assets/images/crosswhite.gif');
   background-color: #000;
+}
+.gameobject-group .gameobject-info > button:before {
+  content: "";
+  width: 12px;
+  height: 12px;
+  display: block;
 }
 .gameobject-group .selected .gameobject-info {
   height: 25%;
