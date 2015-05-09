@@ -1,21 +1,24 @@
-﻿/// <reference path="_app.ts" />
-var BadPony;
-(function (BadPony) {
-    (function (WebClient) {
-        'use strict';
+﻿(function () {
+    'use strict';
 
-        var badponyApp = angular.module('badpony', [
-            'ngRoute',
-            'bpLocationController'
-        ]);
+    var badponyApp = angular.module('badpony', [
+        'ngRoute',
+        'bpLocationController'
+    ]);
 
-        badponyApp.config(function ($routeProvider, $locationProvider) {
-            $routeProvider.when("/", {
-                controller: "LocationController",
-                templateUrl: "/components/views/LocationView.html"
-            });
+    badponyApp.config(function ($routeProvider, $locationProvider) {
+        $routeProvider.when("/", {
+            controller: "LocationController",
+            templateUrl: "/components/views/LocationView.html"
         });
-    })(BadPony.WebClient || (BadPony.WebClient = {}));
-    var WebClient = BadPony.WebClient;
-})(BadPony || (BadPony = {}));
-//# sourceMappingURL=main.js.map
+    });
+
+    window._registerNamespace = function(namespace) {
+        var parts = namespace.split(".");
+        var parent = window;
+        for (var i = 0; i < parts.length; i++) {
+            parent[parts[i]] = parent[parts[i]] || {};
+            parent = parent[parts[i]];
+        }
+    }
+})();
