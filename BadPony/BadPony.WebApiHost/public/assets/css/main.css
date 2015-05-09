@@ -54,7 +54,7 @@ li {
 .gameobject-group li {
   margin: 0 5px 5px 0;
 }
-.gameobject-group .selected .gameobject-info {
+.selected .gameobject-info {
   height: 25%;
   visibility: visible;
 }
