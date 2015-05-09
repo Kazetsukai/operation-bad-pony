@@ -4,10 +4,10 @@
     <div ng-repeat="objGroup in location.LocationObjects" class="gameobject-group" ng-attr-id="{{objGroup.Key + 'Group'}}">
         <h2>{{objGroup.Key}}</h2>
         <ul>
-            <li ng-repeat="obj in objGroup.Value" ng-class="{selected: location.SelectedItem == obj}">
-                <button ng-click="location.SelectObject(obj)"><h3>{{obj.Name}}</h3></button>
+            <li ng-repeat="obj in objGroup.Value" ng-class="{selected: location.SelectedItem == obj, gameobject: true}">
+                <h3 ng-click="location.SelectObject(obj)">{{obj.Name}}</h3>
                 <div class="gameobject-info">
-                    <h3>{{obj.Name}}</h3>
+                    <h3 ng-click="location.SelectObject(null)">{{obj.Name}}</h3>
                     <p>{{obj.Description}}</p>
                     <ul ng-if="obj.Actions && obj.Actions.length">
                         <li ng-repeat="action in obj.Actions">
@@ -17,7 +17,6 @@
                             </button>
                         </li>
                     </ul>
-                    <button ng-click="location.SelectObject(null)">Close</button>
                 </div>
             </li>
         </ul>

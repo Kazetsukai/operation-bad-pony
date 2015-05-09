@@ -429,14 +429,39 @@ th {
 html,
 body {
   height: 100%;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
 }
 body {
   font-family: 'Segoe UI', sans-serif;
   margin: 0;
   background: #222;
+}
+h1 {
+  font-size: 20px;
+  padding-bottom: 0;
+  margin: 0;
+}
+h2 {
+  font-size: 18px;
+  margin: 0;
+}
+h3 {
+  font-size: 14px;
+  margin: 0;
+  font-weight: normal;
+}
+p {
+  font-size: 14px;
+  padding-top: 0;
+  margin: 0;
+}
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0;
+}
+li {
+  display: inline-block;
 }
 .game-area {
   background-color: rgba(255, 255, 255, 0.6);
@@ -444,74 +469,39 @@ body {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   height: 100%;
-  width: 100%;
   overflow-y: auto;
-  -moz-transition: height 0.5s ease-in-out;
-  -o-transition: height 0.5s ease-in-out;
-  -webkit-transition: height 0.5s ease-in-out;
-  transition: height 0.5s ease-in-out;
-}
-.game-area > p,
-.game-area > h1 {
   padding: 10px;
-  margin: 0;
-}
-.game-area > h1 {
-  font-size: 20px;
-  padding-bottom: 0;
-}
-.game-area > p {
-  font-size: 14px;
-  padding-top: 0;
 }
 .gameobject-group {
-  padding: 10px;
+  padding: 10px 10px 0 0;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   vertical-align: top;
 }
-.gameobject-group h2 {
-  margin: 0;
-  font-size: 18px;
+.gameobject-group li {
+  margin: 0 5px 5px 0;
 }
-.gameobject-group h3 {
-  font-size: 14px;
-  margin: 0;
-  font-weight: normal;
+.gameobject-group .selected .gameobject-info {
+  height: 25%;
+  visibility: visible;
 }
-.gameobject-group ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  font-size: 0;
-}
-.gameobject-group > ul > li {
-  display: inline-block;
-}
-.gameobject-group > ul > li > button {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
+.gameobject > h3 {
   border: 1px solid #000;
-  outline: none;
   text-align: center;
   padding: 10px;
   color: #fff;
-  margin: 0 5px 5px 0;
   cursor: pointer;
   -moz-transition: border-color 0.1s ease-in-out, background-color 0.1s ease-in-out, color 0.1s ease-in-out;
   -o-transition: border-color 0.1s ease-in-out, background-color 0.1s ease-in-out, color 0.1s ease-in-out;
   -webkit-transition: border-color 0.1s ease-in-out, background-color 0.1s ease-in-out, color 0.1s ease-in-out;
   transition: border-color 0.1s ease-in-out, background-color 0.1s ease-in-out, color 0.1s ease-in-out;
-  font-size: 14px;
 }
-.gameobject-group > ul > li > button:hover,
-.gameobject-group > ul > li > button.selected {
+.gameobject > h3:hover,
+.gameobject > h3.selected {
   border-color: #fff;
 }
-.gameobject-group .gameobject-info {
-  text-align: left;
+.gameobject-info {
   visibility: hidden;
   position: fixed;
   bottom: 0;
@@ -520,112 +510,80 @@ body {
   background-color: #ebebeb;
   padding: 5px 10px;
   border-top: 1px solid #000;
-  font-size: 0;
   -moz-transition: height 0.25s ease-in-out, left 0.2s ease-in-out, visibility 0.5s linear;
   -o-transition: height 0.25s ease-in-out, left 0.2s ease-in-out, visibility 0.5s linear;
   -webkit-transition: height 0.25s ease-in-out, left 0.2s ease-in-out, visibility 0.5s linear;
   transition: height 0.25s ease-in-out, left 0.2s ease-in-out, visibility 0.5s linear;
-  cursor: default;
   width: 100%;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
-.gameobject-group .gameobject-info h3 {
+.gameobject-info h3 {
   font-weight: bold;
   padding-right: 15px;
 }
-.gameobject-group .gameobject-info h4 {
-  font-size: 14px;
-  margin: 0;
-  padding: 0;
-}
-.gameobject-group .gameobject-info p {
-  font-size: 12px;
-  margin: 0;
-}
-.gameobject-group .gameobject-info ul {
-  padding-top: 5px;
-}
-.gameobject-group .gameobject-info ul li {
-  display: inline-block;
-}
-.gameobject-group .gameobject-info ul li > button {
-  background-color: #111;
-  padding: 10px;
-  font-size: 14px;
-  margin: 0 5px 5px 0;
+.gameobject-info h3::after {
+  content: "";
   cursor: pointer;
-  border: 1px solid transparent;
-  outline: none;
-  -moz-transition: border-color 0.1s ease-in-out, color 0.1s ease-in-out;
-  -o-transition: border-color 0.1s ease-in-out, color 0.1s ease-in-out;
-  -webkit-transition: border-color 0.1s ease-in-out, color 0.1s ease-in-out;
-  transition: border-color 0.1s ease-in-out, color 0.1s ease-in-out;
-  color: #fff;
-}
-.gameobject-group .gameobject-info ul li > button:hover {
-  border-color: #fff;
-}
-.gameobject-group .gameobject-info > button {
   position: absolute;
   top: 5px;
   right: 5px;
-  font-size: 14px;
-  border: 1px solid transparent;
-  outline: none;
   background: url('/assets/images/crossblack.gif') no-repeat left center;
-  width: 14px;
-  height: 14px;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  padding: 0;
-  -moz-transition: background-color 0.1s ease-in-out;
-  -o-transition: background-color 0.1s ease-in-out;
-  -webkit-transition: background-color 0.1s ease-in-out;
-  transition: background-color 0.1s ease-in-out;
-  overflow: hidden;
-}
-.gameobject-group .gameobject-info > button:hover {
-  background-image: url('/assets/images/crosswhite.gif');
-  background-color: #000;
-}
-.gameobject-group .gameobject-info > button:before {
-  content: "";
   width: 12px;
   height: 12px;
-  display: block;
 }
-.gameobject-group .selected .gameobject-info {
-  height: 25%;
-  visibility: visible;
+.gameobject-info h4 {
+  font-size: 14px;
+  margin: 0;
+  padding: 0;
 }
-#JobsGroup > ul > li > button {
+.gameobject-info p {
+  font-size: 12px;
+}
+.gameobject-info ul {
+  padding-top: 5px;
+}
+.gameobject-info button {
+  background-color: #111;
+  padding: 10px;
+  margin: 0 5px 5px 0;
+  border: 1px solid transparent;
+  outline: none;
+  -moz-transition: border-color 0.1s ease-in-out;
+  -o-transition: border-color 0.1s ease-in-out;
+  -webkit-transition: border-color 0.1s ease-in-out;
+  transition: border-color 0.1s ease-in-out;
+  color: #fff;
+}
+.gameobject-info button:hover {
+  border-color: #fff;
+}
+#JobsGroup .gameobject > h3 {
   background-color: #ff6a00;
 }
-#JobsGroup > ul > li.selected > button {
+#JobsGroup .gameobject.selected > h3 {
   background-color: #ffe9d9;
   color: #ff6a00;
 }
-#ItemsGroup > ul > li > button {
+#ItemsGroup .gameobject > h3 {
   background-color: #00ff90;
 }
-#ItemsGroup > ul > li.selected > button {
+#ItemsGroup .gameobject.selected > h3 {
   background-color: #bfffe3;
   color: #00ff90;
 }
-#ExitsGroup > ul > li > button {
+#ExitsGroup .gameobject > h3 {
   background-color: #ff0000;
 }
-#ExitsGroup > ul > li.selected > button {
+#ExitsGroup .gameobject.selected > h3 {
   background-color: #ffbfbf;
   color: #ff0000;
 }
-#PlayersGroup > ul > li > button {
+#PlayersGroup .gameobject > h3 {
   background-color: #0026ff;
 }
-#PlayersGroup > ul > li.selected > button {
+#PlayersGroup .gameobject.selected > h3 {
   background-color: #bfc9ff;
   color: #0026ff;
 }
@@ -637,11 +595,11 @@ body {
     width: 49%;
     display: inline-block;
   }
-  .gameobject-group .selected .gameobject-info {
+  .selected .gameobject-info {
     height: auto;
     left: 0;
   }
-  .gameobject-group .gameobject-info {
+  .gameobject-info {
     left: -300px;
     max-width: 300px;
     height: auto;

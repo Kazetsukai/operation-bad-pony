@@ -133,12 +133,6 @@
     <Content Include="public\assets\images\crosswhite.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="public\assets\js\angular-route.min.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="public\assets\js\angular.min.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="public\assets\js\app.js">
       <DependentUpon>app.js.bundle</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

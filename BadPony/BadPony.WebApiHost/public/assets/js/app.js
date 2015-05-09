@@ -33,7 +33,7 @@
     BadPony.Models.createLocationViewModel = function (data) {
         data.SelectedItem = null;
         data.SelectObject = function (toSelect) {
-            data.SelectedItem = toSelect;
+            data.SelectedItem = data.SelectedItem !== toSelect ? toSelect : null;
         }
 
 
