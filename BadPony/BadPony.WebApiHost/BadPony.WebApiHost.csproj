@@ -136,6 +136,14 @@
     <Content Include="AdminResources\pony.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="public\assets\css\app.css">
+      <DependentUpon>app.css.bundle</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="public\assets\css\app.min.css">
+      <DependentUpon>app.css</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="public\assets\css\main.css">
       <DependentUpon>main.less</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -153,33 +161,25 @@
     <Content Include="public\assets\images\crosswhite.gif">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="public\assets\js\angular-route.min.js">
+    <Content Include="public\assets\js\app.js">
+      <DependentUpon>app.js.bundle</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="public\assets\js\angular.min.js">
+    <Content Include="public\assets\js\app.min.js">
+      <DependentUpon>app.js</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="public\components\controllers\LocationController.js">
-      <DependentUpon>LocationController.ts</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="public\components\main.js">
-      <DependentUpon>main.ts</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="public\components\models\GameObjectModel.js">
-      <DependentUpon>GameObjectModel.ts</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="public\components\models\LocationModel.js">
-      <DependentUpon>LocationModel.ts</DependentUpon>
+    <Content Include="public\components\models\LocationViewModel.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="public\components\views\locationView.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="public\components\_app.js">
-      <DependentUpon>_app.ts</DependentUpon>
     </Content>
     <Content Include="public\index.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -200,8 +200,14 @@
     <Content Include="public\assets\css\main.less">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="public\assets\css\app.css.bundle" />
     <None Include="public\assets\css\main.css.map">
       <DependentUpon>main.css</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="public\assets\js\app.js.bundle" />
+    <None Include="public\assets\js\app.min.js.map">
+      <DependentUpon>app.min.js</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
@@ -212,49 +218,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <TypeScriptCompile Include="public\components\interfaces\IPlayerInfo.ts" />
-    <TypeScriptCompile Include="public\components\main.ts" />
-    <TypeScriptCompile Include="public\components\interfaces\ILocationScope.ts" />
-    <TypeScriptCompile Include="public\components\_app.ts" />
-    <Content Include="public\components\main.js.map">
-      <DependentUpon>main.js</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="public\components\models\GameObjectModel.js.map">
-      <DependentUpon>GameObjectModel.js</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="public\components\models\LocationModel.js.map">
-      <DependentUpon>LocationModel.js</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <None Include="public\components\controllers\LocationController.js.map">
-      <DependentUpon>LocationController.js</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="public\components\_app.js.map">
-      <DependentUpon>_app.js</DependentUpon>
-    </None>
-    <TypeScriptCompile Include="public\components\interfaces\IGameObjectGroup.ts" />
-    <TypeScriptCompile Include="public\components\models\GameObjectModel.ts">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="public\components\models\LocationModel.ts">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="public\components\controllers\LocationController.ts">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-animate.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-cookies.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-mocks.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-resource.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-route.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\angularjs\angular-sanitize.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\angularjs\angular.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

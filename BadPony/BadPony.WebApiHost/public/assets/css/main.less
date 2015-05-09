@@ -11,9 +11,6 @@
 html, 
 body {
     height: 100%;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
 }
 
 body {
@@ -22,209 +19,161 @@ body {
     background: #222;
 }
 
+h1 {
+    font-size: 20px;
+    padding-bottom: 0;
+    margin: 0;
+}
+
+h2 {
+    font-size: 18px;
+    margin: 0;
+}
+
+h3 {
+    font-size: 14px;
+    margin: 0;
+    font-weight: normal;
+}
+
+p {
+    font-size: 14px;
+    padding-top: 0;
+    margin: 0;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 0;
+}
+
+li {
+    display: inline-block;
+}
+
 .game-area {
     background-color: @gameBackgroundColour;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     height: 100%;
-    width: 100%;
     overflow-y: auto;
-    -moz-transition: height 0.5s ease-in-out;
-    -o-transition: height 0.5s ease-in-out;
-    -webkit-transition: height 0.5s ease-in-out;
-    transition: height 0.5s ease-in-out;
-
-    > p,
-    > h1 {
-        padding: 10px;
-        margin: 0;
-    }
-
-    > h1 {
-        font-size: 20px;
-        padding-bottom: 0;
-    }
-
-    > p {
-        font-size: 14px;
-        padding-top: 0;
-    }
+    padding: 10px;
 }
 
 .gameobject-group {
-    padding: 10px;
+    padding: 10px 10px 0 0;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     vertical-align: top;
 
-    h2 {
-        margin: 0;
-        font-size: 18px;
+    li {
+        margin: 0 5px 5px 0;
     }
+}
+
+.selected .gameobject-info {
+    height: 25%;
+    visibility: visible;
+}
+
+.gameobject {
+    > h3 {
+        border: 1px solid #000;
+        text-align: center;
+        padding: 10px;
+        color: #fff;
+        cursor: pointer;
+        -moz-transition: border-color 0.1s ease-in-out, background-color 0.1s ease-in-out, color 0.1s ease-in-out;
+        -o-transition: border-color 0.1s ease-in-out, background-color 0.1s ease-in-out, color 0.1s ease-in-out;
+        -webkit-transition: border-color 0.1s ease-in-out, background-color 0.1s ease-in-out, color 0.1s ease-in-out;
+        transition: border-color 0.1s ease-in-out, background-color 0.1s ease-in-out, color 0.1s ease-in-out;
+
+        &:hover,
+        &.selected {
+            border-color: #fff;
+        }
+    }
+}
+
+.gameobject-info {
+    visibility: hidden;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    height: 0;
+    background-color: #ebebeb;
+    padding: 5px 10px;
+    border-top: 1px solid #000;
+    -moz-transition: height 0.25s ease-in-out, left 0.2s ease-in-out, visibility 0.5s linear;
+    -o-transition: height 0.25s ease-in-out, left 0.2s ease-in-out, visibility 0.5s linear;
+    -webkit-transition: height 0.25s ease-in-out, left 0.2s ease-in-out, visibility 0.5s linear;
+    transition: height 0.25s ease-in-out, left 0.2s ease-in-out, visibility 0.5s linear;
+    width: 100%;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
 
     h3 {
-        font-size: 14px;
-        margin: 0;
-        font-weight: normal;
-    }
+        font-weight: bold;
+        padding-right: 15px;
 
-    ul {
-        list-style: none;
-        margin: 0;
-        padding: 0;
-        font-size: 0;
-    }
-
-    > ul {
-        > li {
-            display: inline-block;
-
-            > button {
-                -moz-box-sizing: border-box;
-                -webkit-box-sizing: border-box;
-                box-sizing: border-box;
-                border: 1px solid #000;
-                outline: none;
-                text-align: center;
-                padding: 10px;
-                color: #fff;
-                margin: 0 5px 5px 0;
-                cursor: pointer;
-                -moz-transition: border-color 0.1s ease-in-out, background-color 0.1s ease-in-out, color 0.1s ease-in-out;
-                -o-transition: border-color 0.1s ease-in-out, background-color 0.1s ease-in-out, color 0.1s ease-in-out;
-                -webkit-transition: border-color 0.1s ease-in-out, background-color 0.1s ease-in-out, color 0.1s ease-in-out;
-                transition: border-color 0.1s ease-in-out, background-color 0.1s ease-in-out, color 0.1s ease-in-out;
-                font-size: 14px;
-
-                &:hover,
-                &.selected {
-                    border-color: #fff;
-                }
-            }
-        }
-    }
-
-    .gameobject-info {
-        text-align: left;
-        visibility: hidden;
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        height: 0;
-        background-color: #ebebeb;
-        padding: 5px 10px;
-        border-top: 1px solid #000;
-        font-size: 0;
-        -moz-transition: height 0.25s ease-in-out, left 0.2s ease-in-out, visibility 0.5s linear;
-        -o-transition: height 0.25s ease-in-out, left 0.2s ease-in-out, visibility 0.5s linear;
-        -webkit-transition: height 0.25s ease-in-out, left 0.2s ease-in-out, visibility 0.5s linear;
-        transition: height 0.25s ease-in-out, left 0.2s ease-in-out, visibility 0.5s linear;
-        cursor: default;
-        width: 100%;
-        -moz-box-sizing: border-box;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box;
-
-        h3 {
-            font-weight: bold;
-            padding-right: 15px;
-        }
-
-        h4 {
-            font-size: 14px;
-            margin: 0;
-            padding: 0;
-        }
-
-        p {
-            font-size: 12px;
-            margin: 0;
-        }
-
-        ul {
-            padding-top: 5px;
-
-            li {
-                display: inline-block;
-
-                > button {
-                    background-color: #111;
-                    padding: 10px;
-                    font-size: 14px;
-                    margin: 0 5px 5px 0;
-                    cursor: pointer;
-                    border: 1px solid transparent;
-                    outline: none;
-                    -moz-transition: border-color 0.1s ease-in-out, color 0.1s ease-in-out;
-                    -o-transition: border-color 0.1s ease-in-out, color 0.1s ease-in-out;
-                    -webkit-transition: border-color 0.1s ease-in-out, color 0.1s ease-in-out;
-                    transition: border-color 0.1s ease-in-out, color 0.1s ease-in-out;
-                    color: #fff;
-
-
-                    &:hover {
-                        border-color: #fff;
-                    }
-                }
-            }
-        }
-
-        > button {
+        &::after {
+            content: "";
+            cursor: pointer;
             position: absolute;
             top: 5px;
             right: 5px;
-            font-size: 14px;
-            border: 1px solid transparent;
-            outline: none;
             background: url('/assets/images/crossblack.gif') no-repeat left center;
-            width: 14px;
-            height: 14px;
-            -moz-box-sizing: border-box;
-            -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-            padding: 0;
-            -moz-transition: background-color 0.1s ease-in-out;
-            -o-transition: background-color 0.1s ease-in-out;
-            -webkit-transition: background-color 0.1s ease-in-out;
-            transition: background-color 0.1s ease-in-out;
-            overflow: hidden;
-
-            &:hover {
-                background-image: url('/assets/images/crosswhite.gif');
-                background-color: #000;
-            }
-
-            &:before {
-                content: "";
-                width: 12px;
-                height: 12px;
-                display: block;
-            }
+            width: 12px;
+            height: 12px;
         }
     }
 
-    .selected .gameobject-info {
-        height: 25%;
-        visibility: visible;
+    h4 {
+        font-size: 14px;
+        margin: 0;
+        padding: 0;
+    }
+
+    p {
+        font-size: 12px;
+    }
+
+    ul {
+        padding-top: 5px;
+    }
+
+    button {
+        background-color: #111;
+        padding: 10px;
+        margin: 0 5px 5px 0;
+        border: 1px solid transparent;
+        outline: none;
+        -moz-transition: border-color 0.1s ease-in-out;
+        -o-transition: border-color 0.1s ease-in-out;
+        -webkit-transition: border-color 0.1s ease-in-out;
+        transition: border-color 0.1s ease-in-out;
+        color: #fff;
+
+        &:hover {
+            border-color: #fff;
+        }
     }
 }
 
 .ObjectGroup(@normal, @active) {
-    > ul {
-        > li {
+    .gameobject {
+        > h3 {
+            background-color: @normal;
+        }
 
-            > button {
-                background-color: @normal;
-            }
-
-            &.selected {
-                > button {
-                    background-color: @active;
-                    color: @normal;
-                }
-            }
+        &.selected > h3 {
+            background-color: @active;
+            color: @normal;
         }
     }
 }
@@ -253,17 +202,17 @@ body {
     .gameobject-group {
         width: 49%;
         display: inline-block;
+    }
 
-        .selected .gameobject-info {
-            height: auto;
-            left: 0;
-        }
+    .selected .gameobject-info {
+        height: auto;
+        left: 0;
+    }
 
-        .gameobject-info {
-            left: -300px;
-            max-width: 300px;
-            height: auto;
-            border-right: 1px solid #000;
-        }
+    .gameobject-info {
+        left: -300px;
+        max-width: 300px;
+        height: auto;
+        border-right: 1px solid #000;
     }
 }
