@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('bpLocationController', []).controller("LocationController", 
+    angular.module('bpLocationController', []).controller("LocationController", ["$scope", "$http",
         function ($scope, $http) {
             var loadLocation = function (containerId) {
                 $http.get("api/Location/" + containerId).success(function (data, status, headers, config) {
@@ -58,6 +58,6 @@
                     loadLocation($scope.player.ContainerId);
                 }
             });
-        }
+        }]
     );
 })();

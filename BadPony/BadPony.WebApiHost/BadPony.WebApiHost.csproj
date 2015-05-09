@@ -108,6 +108,14 @@
     <Content Include="AdminResources\pony.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="public\assets\css\app.css">
+      <DependentUpon>app.css.bundle</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="public\assets\css\app.min.css">
+      <DependentUpon>app.css</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="public\assets\css\main.css">
       <DependentUpon>main.less</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -129,6 +137,14 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="public\assets\js\angular.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="public\assets\js\app.js">
+      <DependentUpon>app.js.bundle</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="public\assets\js\app.min.js">
+      <DependentUpon>app.js</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="public\components\controllers\LocationController.js">
@@ -162,8 +178,14 @@
     <Content Include="public\assets\css\main.less">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="public\assets\css\app.css.bundle" />
     <None Include="public\assets\css\main.css.map">
       <DependentUpon>main.css</DependentUpon>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="public\assets\js\app.js.bundle" />
+    <None Include="public\assets\js\app.min.js.map">
+      <DependentUpon>app.min.js</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

@@ -6,12 +6,12 @@
         'bpLocationController'
     ]);
 
-    badponyApp.config(function ($routeProvider, $locationProvider) {
+    badponyApp.config(["$routeProvider", "$locationProvider", function($routeProvider, $locationProvider) {
         $routeProvider.when("/", {
             controller: "LocationController",
             templateUrl: "/components/views/LocationView.html"
         });
-    });
+    }]);
 
     window._registerNamespace = function(namespace) {
         var parts = namespace.split(".");
