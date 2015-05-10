@@ -3,13 +3,18 @@
 
     var badponyApp = angular.module('badpony', [
         'ngRoute',
+        'bpGameController',
+        'bpAuthController',
         'bpLocationController'
     ]);
 
     badponyApp.config(["$routeProvider", "$locationProvider", function($routeProvider, $locationProvider) {
         $routeProvider.when("/", {
-            controller: "LocationController",
-            templateUrl: "/components/views/LocationView.html"
+            controller: "GameController",
+            templateUrl: "/components/views/gameView.html"
+        }).when("/Authenticate", {
+            controller: "AuthController",
+            templateUrl: "/components/views/authView.html"
         });
     }]);
 

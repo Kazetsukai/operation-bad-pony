@@ -1,0 +1,8 @@
+﻿<div class="main-area">
+    <h1>Choose Authentication</h1>
+    <ul>
+        <li ng-repeat="AuthMethod in AuthMethods" class="auth-method">
+            <a ng-attr-href="{{'/api/Account/' + AuthMethod.Code}}">{{AuthMethod.Name}}</a>
+        </li>
+    </ul>
+</div>
