@@ -9,6 +9,7 @@ using NLog;
 
 namespace BadPony.WebApiHost.Controllers
 {
+    [Authorize]
     public class JobController : ApiController
     {
         public Job Get(int id)

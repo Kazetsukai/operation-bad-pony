@@ -9,6 +9,7 @@ using NLog;
 
 namespace BadPony.WebApiHost.Controllers
 {
+    [Authorize]
     public class ObjectController : ApiController
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();

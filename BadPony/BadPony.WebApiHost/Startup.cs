@@ -6,6 +6,9 @@ using Owin;
 using System.Net.Http.Formatting;
 using Microsoft.Owin.StaticFiles;
 using Microsoft.Owin.FileSystems;
+using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.Cookies;
+using Microsoft.AspNet.Identity;
 
 [assembly: OwinStartup(typeof(BadPony.WebApiHost.Startup))]
 
@@ -29,6 +32,20 @@ namespace BadPony.WebApiHost
                 RequestPath = new PathString(string.Empty),
                 FileSystem = new PhysicalFileSystem("./public"),
                 EnableDirectoryBrowsing = true,
+            });
+
+            app.UseCookieAuthentication(new CookieAuthenticationOptions()
+            {
+                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie
+            });
+
+            app.UseExternalSignInCookie();
+
+            /*These values should probably come from a web.config or something at some point*/
+            app.UseFacebookAuthentication(new Microsoft.Owin.Security.Facebook.FacebookAuthenticationOptions()
+            {
+                AppId = "1447513105546399",
+                AppSecret = "026c2c097c5666aad9dc1f2ccfe20fd3"
             });
 
             app.UseWebApi(config);

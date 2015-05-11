@@ -1,4 +1,12 @@
-﻿<div class="game-area">
+﻿<div class="account-info">
+
+</div>
+
+<div class="player-info">
+
+</div>
+
+<div class="main-area" ng-controller="LocationController">
     <h1>{{ location.Name }}</h1>
     <p>{{ location.Description }}</p>
     <div ng-repeat="objGroup in location.LocationObjects" class="gameobject-group" ng-attr-id="{{objGroup.Key + 'Group'}}">
@@ -22,3 +30,4 @@
         </ul>
     </div>
 </div>
+

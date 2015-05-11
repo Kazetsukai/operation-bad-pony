@@ -9,10 +9,42 @@ using NLog;
 
 namespace BadPony.WebApiHost.Controllers
 {
+    [Authorize]
     public class LocationController : ApiController
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
-        public LocationView Get(int id = 0)
+
+        public LocationView Get()
+        {
+            string playerId = Utility.UserInfo.GetCurrentUserId(Request);
+            if (playerId == null)
+            {
+                return null;
+            }
+
+            Player player = Program.Game.GetPlayerByUsername(playerId);
+            if (player == null)
+            {
+                return null;
+            }
+
+            int id = player.ContainerId;
+            logger.Debug("\tWAPI\tLocation {0} requested", id);
+            GameObject requestedLocation = Program.Game.GetObject(id);
+
+            if (requestedLocation != null)
+            {
+                var view = new LocationView(requestedLocation);
+                logger.Debug("\tWAPI\tSuccess: Retrieved - {0}", requestedLocation.Name);
+                return view;
+            }
+
+            logger.Error("\tWAPI\tFailed: Location {0} does not exist.", id);
+
+            throw new HttpResponseException(HttpStatusCode.NotFound);
+        }
+
+        /*public LocationView Get(int id = 0)
         {
             logger.Debug("\tWAPI\tLocation {0} requested", id);
             GameObject requestedLocation = Program.Game.GetObject(id);
@@ -26,6 +58,6 @@ namespace BadPony.WebApiHost.Controllers
             logger.Error("\tWAPI\tFailed: Location {0} does not exist.", id);
             
             throw new HttpResponseException(HttpStatusCode.NotFound);
-        }
+        }*/
     }
 }
