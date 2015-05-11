@@ -3,7 +3,8 @@
 
     var badponyApp = angular.module('badpony', [
         'ngRoute',
-        'bpLocationController'
+        'bpLocationController',
+        'bpInspectController'
     ]);
 
     badponyApp.config(["$routeProvider", "$locationProvider", function($routeProvider, $locationProvider) {
@@ -12,7 +13,7 @@
             templateUrl: "/components/views/locationView.html"
         });
         $routeProvider.when("/inspect", {
-            controller: "LocationController",
+            controller: "InspectController",
             templateUrl: "/components/views/inspectView.html"
         });
     }]);

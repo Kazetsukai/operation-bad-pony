@@ -4,13 +4,18 @@
 
     var badponyApp = angular.module('badpony', [
         'ngRoute',
-        'bpLocationController'
+        'bpLocationController',
+        'bpInspectController'
     ]);
 
     badponyApp.config(["$routeProvider", "$locationProvider", function($routeProvider, $locationProvider) {
         $routeProvider.when("/", {
             controller: "LocationController",
-            templateUrl: "/components/views/LocationView.html"
+            templateUrl: "/components/views/locationView.html"
+        });
+        $routeProvider.when("/inspect", {
+            controller: "InspectController",
+            templateUrl: "/components/views/inspectView.html"
         });
     }]);
 
@@ -161,6 +166,23 @@
                     loadLocation($scope.player.ContainerId);
                 }
             });
+        }]
+    );
+})();
+
+///#source 1 1 /public/components/controllers/InspectController.js
+(function () {
+    'use strict';
+
+    angular.module('bpInspectController', []).controller("InspectController", ["$scope", "$http",
+        function ($scope, $http) {
+            var loadObject = function (objectId) {
+                $http.get("api/Object/" + objectId).success(function (data, status, headers, config) {
+                    $scope.object = data;
+                });
+            };
+
+            loadObject(6);
         }]
     );
 })();

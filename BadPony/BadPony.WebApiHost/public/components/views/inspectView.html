@@ -1,5 +1,20 @@
-﻿<div class="game-area">
-    <h1>Woop woop!</h1>
-    <p>Woop! Woop woop? Woo-woop.</p>
+﻿<style type="text/css" media="screen">
+    #editor {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+</style>
+<div class="game-area">
+    <h1>{{ object.Name }}</h1>
+    <p>{{ object.Description }}</p>
     
+    <div id="editor">Test test</div>
+    <script>
+        var editor = ace.edit("editor");
+        editor.setTheme("ace/theme/monokai");
+        editor.getSession().setMode("ace/mode/javascript");
+    </script>
 </div>
