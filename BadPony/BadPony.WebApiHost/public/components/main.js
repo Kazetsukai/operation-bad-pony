@@ -9,7 +9,11 @@
     badponyApp.config(["$routeProvider", "$locationProvider", function($routeProvider, $locationProvider) {
         $routeProvider.when("/", {
             controller: "LocationController",
-            templateUrl: "/components/views/LocationView.html"
+            templateUrl: "/components/views/locationView.html"
+        });
+        $routeProvider.when("/inspect", {
+            controller: "LocationController",
+            templateUrl: "/components/views/inspectView.html"
         });
     }]);
 
