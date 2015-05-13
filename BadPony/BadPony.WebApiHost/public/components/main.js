@@ -3,6 +3,7 @@
 
     var badponyApp = angular.module('badpony', [
         'ngRoute',
+        'ui.ace',
         'bpLocationController',
         'bpInspectController'
     ]);

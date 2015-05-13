@@ -23,7 +23,7 @@ namespace BadPony.WebApiHost
             Game = new Game();
 
 #if DEBUG
-            var url = "http://127.0.0.1:9090";
+            var url = "http://localhost:9090";
 #else
             var url = "http://+:9090";
 #endif

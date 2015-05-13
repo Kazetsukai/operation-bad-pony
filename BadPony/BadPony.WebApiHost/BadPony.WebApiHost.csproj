@@ -762,6 +762,9 @@
       <DependentUpon>app.js</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="public\assets\js\ui-ace.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="public\components\controllers\InspectController.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
