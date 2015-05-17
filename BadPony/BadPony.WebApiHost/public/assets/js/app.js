@@ -14,7 +14,7 @@
             controller: "LocationController",
             templateUrl: "/components/views/locationView.html"
         });
-        $routeProvider.when("/inspect", {
+        $routeProvider.when("/inspect/:id", {
             controller: "InspectController",
             templateUrl: "/components/views/inspectView.html"
         });
@@ -175,15 +175,15 @@
 (function () {
     'use strict';
 
-    angular.module('bpInspectController', []).controller("InspectController", ["$scope", "$http",
-        function ($scope, $http) {
+    angular.module('bpInspectController', []).controller("InspectController", ["$scope", "$http", "$routeParams",
+        function ($scope, $http, $routeParams) {
             var loadObject = function (objectId) {
                 $http.get("api/Object/" + objectId).success(function (data, status, headers, config) {
                     $scope.object = data;
                 });
             };
 
-            loadObject(6);
+            loadObject($routeParams["id"]);
         }]
     );
 })();

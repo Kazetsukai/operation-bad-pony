@@ -13,7 +13,7 @@
             controller: "LocationController",
             templateUrl: "/components/views/locationView.html"
         });
-        $routeProvider.when("/inspect", {
+        $routeProvider.when("/inspect/:id", {
             controller: "InspectController",
             templateUrl: "/components/views/inspectView.html"
         });
