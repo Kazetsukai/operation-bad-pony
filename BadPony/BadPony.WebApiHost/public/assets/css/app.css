@@ -459,12 +459,11 @@ ul {
   list-style: none;
   margin: 0;
   padding: 0;
-  font-size: 0;
 }
 li {
   display: inline-block;
 }
-.game-area {
+.main-area {
   background-color: rgba(255, 255, 255, 0.6);
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -473,12 +472,42 @@ li {
   overflow-y: auto;
   padding: 10px;
 }
+.auth-method ul {
+  padding-top: 10px;
+}
+.auth-method a {
+  border: 1px solid #000;
+  background-color: #111;
+  text-align: center;
+  padding: 10px;
+  color: #fff;
+  cursor: pointer;
+  -moz-transition: border-color 0.1s ease-in-out, background-color 0.1s ease-in-out, color 0.1s ease-in-out;
+  -o-transition: border-color 0.1s ease-in-out, background-color 0.1s ease-in-out, color 0.1s ease-in-out;
+  -webkit-transition: border-color 0.1s ease-in-out, background-color 0.1s ease-in-out, color 0.1s ease-in-out;
+  transition: border-color 0.1s ease-in-out, background-color 0.1s ease-in-out, color 0.1s ease-in-out;
+  text-decoration: none;
+  display: inline-block;
+}
+.auth-method a:hover,
+.auth-method a.selected {
+  border-color: #fff;
+}
+.auth-method a:visited,
+.auth-method a:hover,
+.auth-method a:active,
+.auth-method a:link {
+  color: #fff;
+}
 .gameobject-group {
   padding: 10px 10px 0 0;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
   vertical-align: top;
+}
+.gameobject-group ul {
+  font-size: 0;
 }
 .gameobject-group li {
   margin: 0 5px 5px 0;

@@ -4,20 +4,24 @@
     var badponyApp = angular.module('badpony', [
         'ngRoute',
         'ui.ace',
+        'bpGameController',
+        'bpAuthController',
         'bpLocationController',
         'bpInspectController'
     ]);
 
     badponyApp.config(["$routeProvider", "$locationProvider", function($routeProvider, $locationProvider) {
         $routeProvider.when("/", {
-            controller: "LocationController",
-            templateUrl: "/components/views/locationView.html"
-        });
-        $routeProvider.when("/inspect/:id", {
+            controller: "GameController",
+            templateUrl: "/components/views/gameView.html"
+        }).when("/Authenticate", {
+            controller: "AuthController",
+            templateUrl: "/components/views/authView.html"
+        }).when("/inspect/:id", {
             controller: "InspectController",
             templateUrl: "/components/views/inspectView.html"
         });
-    }]);
+}]);
 
     window._registerNamespace = function(namespace) {
         var parts = namespace.split(".");
