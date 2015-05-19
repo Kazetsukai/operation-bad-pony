@@ -171,6 +171,40 @@
     );
 })();
 
+///#source 1 1 /public/components/controllers/GameController.js
+(function () {
+    'use strict';
+
+    angular.module('bpGameController', []).controller("GameController", ["$scope", "$http", "$location",
+        function ($scope, $http, $location) {
+            $scope.Player = null;
+
+            $http.get("/api/Player")
+                .success(function (data, status, headers, config) {
+                    $scope.Player = data;
+                })
+                .error(function (data, status, headers, config) {
+                    if (status === 401) {
+                        $location.url("/Authenticate");
+                    }
+                });
+        }]);
+})();
+///#source 1 1 /public/components/controllers/AuthController.js
+(function () {
+    'use strict';
+
+    angular.module('bpAuthController', []).controller("AuthController", ["$scope", "$http",
+        function ($scope, $http, $location) {
+           $http.get("/api/Account")
+                .success(function (data, status, headers, config) {
+                    $scope.AuthMethods = data;
+                })
+                .error(function (data, status, headers, config) {
+                    /*TO DO*/
+                });
+        }]);
+})();
 ///#source 1 1 /public/components/controllers/InspectController.js
 (function () {
     'use strict';

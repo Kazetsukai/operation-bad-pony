@@ -13,6 +13,8 @@
     <file>/public/components/main.js</file>
     <file>/public/components/models/LocationViewModel.js</file>
     <file>/public/components/controllers/LocationController.js</file>
+    <file>/public/components/controllers/GameController.js</file>
+    <file>/public/components/controllers/AuthController.js</file>
     <file>/public/components/controllers/InspectController.js</file>
   </files>
 </bundle>
