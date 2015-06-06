@@ -132,6 +132,21 @@ namespace BadPony.Core
                 return _gameObjects.OfType<Player>().FirstOrDefault(p => String.Equals(p.UserName, userName, StringComparison.InvariantCultureIgnoreCase));
         }
 
+        public void IncrementAP()
+        {
+            lock (_lockObject)
+            {
+                List<Player> players = _gameObjects.OfType<Player>().ToList();
+                foreach (var player in players)
+                {
+                    if (player.ActionPoints <= 48)
+                    {
+                        player.ActionPoints++;
+                    }
+                }
+            }
+        }
+
         public bool PostMessage(IGameMessage message)
         {
             // Dispatch messages at some point.
@@ -148,6 +163,25 @@ namespace BadPony.Core
                 _gameObjects.Add(player);
                 
                 return true;
+            }
+            else if (message is TimerMessage)
+            {
+                IncrementAP();
+            }
+            else if (message is DoJobMessage)
+            {
+                var jobMessage = (DoJobMessage)message;
+                // fetch objects
+                Job job = (Job)_gameObjects.FirstOrDefault(j => j.Id == jobMessage.JobId);
+                Player player = (Player)_gameObjects.FirstOrDefault(p => p.Id == jobMessage.PlayerId);
+                // validate job
+                if (job != null && player != null && player.ActionPoints >= job.APCost && job.ContainerId == player.ContainerId)
+                {
+                    player.ActionPoints -= job.APCost;
+                    player.Cash += job.Pay;
+                    return true;
+                }
+                return false;
             }
             else if (message is MoveObjectMessage)
             {
@@ -167,7 +201,7 @@ namespace BadPony.Core
             }
             else if (message is SetPropertyMessage)
             {
-                var m = (SetPropertyMessage) message;
+                var m = (SetPropertyMessage)message;
 
                 var obj = GetObject(m.ObjectId);
 
@@ -182,7 +216,7 @@ namespace BadPony.Core
             }
             else if (message is ExecutePropertyMessage)
             {
-                var m = (ExecutePropertyMessage) message;
+                var m = (ExecutePropertyMessage)message;
 
                 var obj = GetObject(m.ObjectId);
 

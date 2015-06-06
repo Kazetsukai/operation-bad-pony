@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using NLog;
 using BadPony.Core;
+using System.Threading;
+using BadPony.WebApiHost;
 
 namespace BadPony.WebApiHost
 {
@@ -15,16 +17,23 @@ namespace BadPony.WebApiHost
         private static string prompt = "BP: ";
         private static string adminResources = "./AdminResources/";
         private static Logger logger = LogManager.GetCurrentClassLogger();
-        private string input;
-        private string[] command;
+        private static string input;
+        private static string[] command;
         private const int TAB = 8;
+        //private Game game;
 
-        public void StartCLI(Game game)
+        //public AdminCLI(Game _game)
+        //{
+        //    game = _game;
+        //}
+
+        public static void StartCLI()
         {
             while (!exit)
             {
                 Console.ResetColor();
                 Console.Write(prompt);
+                Thread.Sleep(1000);
                 input = Console.ReadLine();
                 command = input.Split(' ');
                 if (command.Length > 0)
@@ -41,8 +50,12 @@ namespace BadPony.WebApiHost
                         case "help":
                             displayHelp();
                             break;
+                        case "tick":
+                            TimerMessage tick = new TimerMessage { time = DateTime.Now };
+                            Program.Game.PostMessage(tick);
+                            break;
                         case "list":
-                            displayList(command, game);
+                            displayList(command, Program.Game);
                             break;
                         case "web":
                             System.Diagnostics.Process.Start("http://localhost:9090");
@@ -55,6 +68,7 @@ namespace BadPony.WebApiHost
                 }
                 Array.Clear(command, 0, command.Length);
             }
+            Program.running = false;
         }
 
         private static void displayPony(string[] command)
@@ -83,10 +97,12 @@ namespace BadPony.WebApiHost
             }
             catch (FileNotFoundException fnfex)
             {
+                logger.ErrorException("\tACLI\tFile not found", fnfex);
                 Console.WriteLine(fnfex.Message);
             }
             catch (DirectoryNotFoundException dnfex)
             {
+                logger.ErrorException("\tACLI\tDirectory not found", dnfex);
                 Console.WriteLine(dnfex.Message);
             }
             catch (IOException ioex)
@@ -128,24 +144,24 @@ namespace BadPony.WebApiHost
 
             if (command[1] == "players")
             {
-                string[] headers = new string[] { "ID", "Name", "Username", "Location" };              
-                List<Player> players = game.GetAllObjects().OfType<Player>().ToList();
+                string[] headers = new string[] { "ID", "Name", "Username", "Location", "AP" };              
+                List<Player> players = Program.Game.GetAllObjects().OfType<Player>().ToList();
                 List<string[]> playerData = new List<string[]>();
                 foreach (Player player in players)
                 {
-                    playerData.Add(new string[]{ player.Id.ToString(), player.Name, player.UserName, game.GetObject(player.ContainerId).Name });                    
+                    playerData.Add(new string[]{ player.Id.ToString(), player.Name, player.UserName, game.GetObject(player.ContainerId).Name, player.ActionPoints.ToString() });                    
                 }
                 drawTable(headers, playerData);
             }
             else if (command[1] == "locations")
             {
                 string[] headers = new string[] { "ID", "Name", "Exits" };                
-                List<Location> locations = game.GetAllObjects().OfType<Location>().ToList();
+                List<Location> locations = Program.Game.GetAllObjects().OfType<Location>().ToList();
                 List<string[]> locationData = new List<string[]>();
                 foreach (Location location in locations)
                 {
                     string output = "";
-                    List<Door> exits = game.GetContainedObjects(location.Id).OfType<Door>().ToList();
+                    List<Door> exits = Program.Game.GetContainedObjects(location.Id).OfType<Door>().ToList();
                     foreach (var exit in exits)
                     {
                         output += exit.Id + ", ";
@@ -161,7 +177,7 @@ namespace BadPony.WebApiHost
             else if (command[1] == "doors")
             {
                 string[] headers = new string[] { "ID", "Name", "Location" };                
-                List<Door> doors = game.GetAllObjects().OfType<Door>().ToList();
+                List<Door> doors = Program.Game.GetAllObjects().OfType<Door>().ToList();
                 List<string[]> doorData = new List<string[]>();
                 foreach (var door in doors)
                 {
@@ -172,7 +188,7 @@ namespace BadPony.WebApiHost
             else if (command[1] == "all")
             {
                 string[] headers = new string[] { "ID", "Name", "Location" };                
-                List<GameObject> all = game.GetAllObjects().ToList();
+                List<GameObject> all = Program.Game.GetAllObjects().ToList();
                 List<string[]> allData = new List<string[]>();
                 foreach (var item in all)
                 {
