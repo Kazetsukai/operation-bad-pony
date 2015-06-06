@@ -3,27 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-
 
 namespace BadPony.WebApiHost
 {
     public class Scheduler
     {
-        public static void Tick()
+        public static bool SchedulerStarted = false;
+        public static List<ScheduledMessageList> ScheduledMessages;
+
+        public static void Start()
         {
-            int upTime = 0;
+            Program.UpTime = 0;
+            ScheduledMessages = new List<ScheduledMessageList>();
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Scheduler started");
-            while (BadPony.WebApiHost.Program.running)
+            Console.ResetColor();
+            SchedulerStarted = true;
+            while (Program.running)
             {
-                upTime++;
-                if (upTime % 60 == 0)
+                if (ScheduledMessages.FirstOrDefault(sm => sm.ScheduledTime == Program.UpTime) != null)
                 {
-                    Console.WriteLine("Uptime {0} minutes", upTime/60);
+
+                }
+                Program.UpTime++;
+                if (Program.UpTime % 60 == 0)
+                {                    
                     BadPony.WebApiHost.Program.Game.IncrementAP();
                 }                
                 Thread.Sleep(1000);
             }
+            SchedulerStarted = false;
         }
     }
 }

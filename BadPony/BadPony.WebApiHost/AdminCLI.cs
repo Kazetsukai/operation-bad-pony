@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NLog;
 using BadPony.Core;
 using System.Threading;
@@ -13,23 +11,20 @@ namespace BadPony.WebApiHost
 {
     class AdminCLI
     {
-        private static bool exit = false;
         private static string prompt = "BP: ";
         private static string adminResources = "./AdminResources/";
-        private static Logger logger = LogManager.GetCurrentClassLogger();
         private static string input;
         private static string[] command;
         private const int TAB = 8;
-        //private Game game;
-
-        //public AdminCLI(Game _game)
-        //{
-        //    game = _game;
-        //}
-
-        public static void StartCLI()
+        
+        public static void Start()
         {
-            while (!exit)
+            //wait for Scheduler to start before starting main loop
+            while (!Scheduler.SchedulerStarted)
+            {
+                Thread.Sleep(100);
+            }
+            while (Program.running)
             {
                 Console.ResetColor();
                 Console.Write(prompt);
@@ -44,16 +39,12 @@ namespace BadPony.WebApiHost
                             displayPony(command);
                             break;                        
                         case "exit":
-                            logger.Info("\tWAPI\tExit command entered on CLI");
-                            exit = true;
+                            Program.logger.Info("\tWAPI\tExit command entered on CLI");
+                            Program.running = false;
                             break;
                         case "help":
                             displayHelp();
-                            break;
-                        case "tick":
-                            TimerMessage tick = new TimerMessage { time = DateTime.Now };
-                            Program.Game.PostMessage(tick);
-                            break;
+                            break;                        
                         case "list":
                             displayList(command, Program.Game);
                             break;
@@ -68,7 +59,6 @@ namespace BadPony.WebApiHost
                 }
                 Array.Clear(command, 0, command.Length);
             }
-            Program.running = false;
         }
 
         private static void displayPony(string[] command)
@@ -97,12 +87,12 @@ namespace BadPony.WebApiHost
             }
             catch (FileNotFoundException fnfex)
             {
-                logger.ErrorException("\tACLI\tFile not found", fnfex);
+                Program.logger.ErrorException("\tACLI\tFile not found", fnfex);
                 Console.WriteLine(fnfex.Message);
             }
             catch (DirectoryNotFoundException dnfex)
             {
-                logger.ErrorException("\tACLI\tDirectory not found", dnfex);
+                Program.logger.ErrorException("\tACLI\tDirectory not found", dnfex);
                 Console.WriteLine(dnfex.Message);
             }
             catch (IOException ioex)
@@ -254,6 +244,5 @@ namespace BadPony.WebApiHost
             Console.WriteLine(body);
             Console.WriteLine("-------------------------------------------------------------------------------");
         }
-
     }
 }

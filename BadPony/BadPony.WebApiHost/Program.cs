@@ -13,11 +13,10 @@ namespace BadPony.WebApiHost
 {
     public class Program
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        public static Logger logger = LogManager.GetCurrentClassLogger();
         public static bool running = true;
         public static Game Game;
-
-
+        public static int UpTime;
 
         public static void Main(string[] args)
         {
@@ -29,8 +28,8 @@ namespace BadPony.WebApiHost
             Console.WriteLine("WebApi self-host running at " + url + "...");
             logger.Info("\tWAPI\tStarting CLI");
             
-            Thread schedThread = new Thread(new ThreadStart(Scheduler.Tick));            
-            Thread cliThread = new Thread(new ThreadStart(AdminCLI.StartCLI));            
+            Thread schedThread = new Thread(new ThreadStart(Scheduler.Start));            
+            Thread cliThread = new Thread(new ThreadStart(AdminCLI.Start));            
             
             cliThread.Start();
             schedThread.Start();

@@ -120,6 +120,7 @@
   <ItemGroup>
     <Compile Include="AdminCLI.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="ScheduledMessage.cs" />
     <Compile Include="Scheduler.cs" />
     <Compile Include="Utility\AuthenticateMethod.cs" />
     <Compile Include="Controllers\LocationView.cs" />
