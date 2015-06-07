@@ -8,9 +8,14 @@ using System.Threading.Tasks;
 namespace BadPony.WebApiHost
 {
     public class ScheduledMessageList
-    {
-        public List<IGameMessage> ScheduledMessages = new List<IGameMessage>();
+    {        
         public int ScheduledTime {get; set;}
+        public List<IGameMessage> ScheduledMessages = new List<IGameMessage>();
 
+        public ScheduledMessageList(int time, IGameMessage message)
+        {
+            ScheduledTime = time;
+            ScheduledMessages.Add(message);
+        }
     }
 }

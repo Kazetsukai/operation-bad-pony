@@ -19,6 +19,7 @@ namespace BadPony.WebApiHost
         
         public static void Start()
         {
+            ScheduledMessageList test = new ScheduledMessageList(45, new TimerMessage());
             //wait for Scheduler to start before starting main loop
             while (!Scheduler.SchedulerStarted)
             {
@@ -26,9 +27,12 @@ namespace BadPony.WebApiHost
             }
             while (Program.running)
             {
+                
+
                 Console.ResetColor();
                 Console.Write(prompt);
                 Thread.Sleep(1000);
+                Scheduler.ScheduledMessages.Add(test);
                 input = Console.ReadLine();
                 command = input.Split(' ');
                 if (command.Length > 0)

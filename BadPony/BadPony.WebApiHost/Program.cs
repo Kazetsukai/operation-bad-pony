@@ -28,11 +28,13 @@ namespace BadPony.WebApiHost
             Console.WriteLine("WebApi self-host running at " + url + "...");
             logger.Info("\tWAPI\tStarting CLI");
             
-            Thread schedThread = new Thread(new ThreadStart(Scheduler.Start));            
-            Thread cliThread = new Thread(new ThreadStart(AdminCLI.Start));            
             
-            cliThread.Start();
+            Thread schedThread = new Thread(new ThreadStart(Scheduler.Start));            
+            Thread cliThread = new Thread(new ThreadStart(AdminCLI.Start));
+
             schedThread.Start();
+            cliThread.Start();
+            
             logger.Info("\tWAPI\tGame over!!! - Please insert 50c to play again.");
         }   
     }

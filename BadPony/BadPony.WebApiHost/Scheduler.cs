@@ -21,15 +21,20 @@ namespace BadPony.WebApiHost
             SchedulerStarted = true;
             while (Program.running)
             {
-                if (ScheduledMessages.FirstOrDefault(sm => sm.ScheduledTime == Program.UpTime) != null)
-                {
-
-                }
                 Program.UpTime++;
-                if (Program.UpTime % 60 == 0)
-                {                    
-                    BadPony.WebApiHost.Program.Game.IncrementAP();
-                }                
+                var currentTimeMessageList = ScheduledMessages.FirstOrDefault(sm => sm.ScheduledTime == Program.UpTime) ;
+                if (currentTimeMessageList != null)
+                {
+                    foreach (var message in currentTimeMessageList.ScheduledMessages)
+                    {
+                        Program.Game.PostMessage(message);
+                    }
+                }
+                
+                //if (Program.UpTime % 60 == 0)
+                //{                    
+                //    BadPony.WebApiHost.Program.Game.IncrementAP();
+                //}                
                 Thread.Sleep(1000);
             }
             SchedulerStarted = false;
