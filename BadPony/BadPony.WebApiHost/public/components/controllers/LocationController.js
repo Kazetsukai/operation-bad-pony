@@ -30,7 +30,7 @@
                     playerId: $scope.Player.Id
                 }).success(function (data, status, headers, config) {
                     if (data === false) {
-                        alert("You are out of action points.\nPlease wait a while before trying to work again.");
+                        alert(data + "You are out of action points.\nPlease wait a while before trying to work again.");
                     }
                 });
             };
