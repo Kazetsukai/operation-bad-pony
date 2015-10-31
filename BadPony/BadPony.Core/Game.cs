@@ -132,18 +132,22 @@ namespace BadPony.Core
                 return _gameObjects.OfType<Player>().FirstOrDefault(p => String.Equals(p.UserName, userName, StringComparison.InvariantCultureIgnoreCase));
         }
 
-        public void IncrementAP()
+        public Player GetPlayerById(int id)
+        {
+            lock (_lockObject)
+                return _gameObjects.OfType<Player>().FirstOrDefault(p => p.Id == id);
+        }
+
+        public void IncrementAP(int PlayerID)
         {
             lock (_lockObject)
             {
-                List<Player> players = _gameObjects.OfType<Player>().ToList();
-                foreach (var player in players)
+                Player player = GetPlayerById(PlayerID);
+                if (player.ActionPoints <= 48)
                 {
-                    if (player.ActionPoints <= 48)
-                    {
-                        player.ActionPoints++;
-                    }
+                    player.ActionPoints++;
                 }
+
             }
         }
 
@@ -166,7 +170,12 @@ namespace BadPony.Core
             }
             else if (message is TimerMessage)
             {
-                IncrementAP();
+                //IncrementAP();
+            }
+            else if (message is IncrementAPMessage)
+            {
+                var incrementAPMessage = (IncrementAPMessage)message;
+                IncrementAP(incrementAPMessage.PlayerID);
             }
             else if (message is DoJobMessage)
             {

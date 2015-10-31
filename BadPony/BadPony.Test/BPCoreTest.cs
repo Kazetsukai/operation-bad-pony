@@ -27,7 +27,7 @@ namespace BadPony.Test
                 Description = description
             };
             game.PostMessage(playerMessage);
-            Assert.Greater(game.GetAllObjects().ToList().Count, initialObjectCount, "Number of players has not increased");
+            Assert.Greater(game.GetAllObjects().OfType<Player>().ToList().Count, initialObjectCount, "Number of players has not increased");
             Assert.IsNotNull(game.GetPlayerByUsername(userName), "User " + userName + " was not found");
         }
 
@@ -49,10 +49,15 @@ namespace BadPony.Test
             Location backOfTonys = locations.Where(l => l.Name == "Back of Fat Tony's Pizzeria").First();
             initialObjectCount = game.GetContainedObjects(backAlley.Id).OfType<Player>().ToList().Count;
             int initialTonysCount = game.GetContainedObjects(backOfTonys.Id).OfType<Player>().ToList().Count;
-            MoveObjectMessage moveMsg = new MoveObjectMessage { ObjectId = game.GetPlayerByUsername(defaultUserName).Id, OriginId = backAlley.Id, DestinationId = backOfTonys.Id };
+            MoveObjectMessage moveMsg = new MoveObjectMessage
+            {
+                ObjectId = game.GetPlayerByUsername(defaultUserName).Id,
+                OriginId = backAlley.Id,
+                DestinationId = backOfTonys.Id
+            };
             game.PostMessage(moveMsg);
-            Assert.Less(game.GetContainedObjects(backAlley.Id).OfType<Player>().ToList().Count, initialObjectCount, "Back alley ");
-            Assert.Greater(game.GetContainedObjects(backOfTonys.Id).OfType<Player>().ToList().Count, initialTonysCount);
+            Assert.Less(game.GetContainedObjects(backAlley.Id).OfType<Player>().ToList().Count, initialObjectCount, "Object not moved from Back Alley");
+            Assert.Greater(game.GetContainedObjects(backOfTonys.Id).OfType<Player>().ToList().Count, initialTonysCount, "Object not moved to Back of Fat Tony's");
         }
 
         [Test]
@@ -73,6 +78,18 @@ namespace BadPony.Test
             var game = CreateTestGame();
             var initialObjectCount = game.GetAllObjects().OfType<Player>().ToList().Count;
             
+        }
+
+        [Test]
+        public void TestIncrementAPMessage()
+        {
+            var game = CreateTestGame();
+            Player defaultPlayer = game.GetPlayerByUsername("default");
+            int initialAP = defaultPlayer.ActionPoints;
+            IncrementAPMessage incrementAP = new IncrementAPMessage { PlayerID = defaultPlayer.Id };
+            game.PostMessage(incrementAP);
+            Assert.Greater(48, initialAP);
+            Assert.Greater(defaultPlayer.ActionPoints, initialAP);
         }
     }
 }

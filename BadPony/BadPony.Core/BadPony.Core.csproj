@@ -74,6 +74,7 @@
     <Compile Include="Game.cs" />
     <Compile Include="GameObject.cs" />
     <Compile Include="IGameMessage.cs" />
+    <Compile Include="IncrementAPMessage.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="Job.cs" />
     <Compile Include="Location.cs" />
