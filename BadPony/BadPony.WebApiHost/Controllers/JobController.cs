@@ -18,8 +18,22 @@ namespace BadPony.WebApiHost.Controllers
         }
 
         public bool Post(DoJobMessage message)
-        {            
-            return Program.Game.PostMessage(message);            
+        {
+            bool startIncrements = false;
+            if(Program.Game.GetPlayerById(message.PlayerId).ActionPoints == Game.DailyAP)
+            {
+                startIncrements = true;
+            }
+            if (Program.Game.PostMessage(message))
+            {
+                if (startIncrements)
+                {
+                    IncrementAPMessage msg = new IncrementAPMessage { PlayerID = message.PlayerId, Time = Program.UpTime + 60 };
+                    Scheduler.AddScheduledMessage(msg, msg.Time);
+                }
+                return true;
+            }
+            return false;
         }
     }
 }

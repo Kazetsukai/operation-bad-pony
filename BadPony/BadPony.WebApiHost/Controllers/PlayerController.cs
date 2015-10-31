@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Net;
+﻿using System.Net;
 using System.Web.Http;
 using BadPony.Core;
 using NLog;
@@ -17,18 +12,18 @@ namespace BadPony.WebApiHost.Controllers
 
         public Player Get()
         {
-            string id = Utility.UserInfo.GetCurrentUserId(Request);
-            if (id != null)
+            string authId = Utility.UserInfo.GetCurrentUserId(Request);
+            if (authId != null)
             {
-                Player player = Program.Game.GetPlayerByUsername(id);
+                Player player = Program.Game.GetPlayerByUsername(authId);
                 if (player == null)
                 {
-                    logger.Debug("\tWAPI\tSent player {0}", id);
-                    Program.Game.PostMessage(new CreateNewPlayerMessage() { UserName = id, Name = Utility.UserInfo.GetCurrentUserName(Request) });
-                    player = Program.Game.GetPlayerByUsername(id);
+                    logger.Debug("\tWAPI\tSent player {0}", authId);
+                    Program.Game.PostMessage(new CreateNewPlayerMessage() { UserName = authId, Name = Utility.UserInfo.GetCurrentUserName(Request) });
+                    player = Program.Game.GetPlayerByUsername(authId);                    
                 }
-
-                logger.Debug("\tWAPI\tRetrieved player {0}", id);
+                player.LastActionTime = Program.UpTime;
+                logger.Debug("\tWAPI\tRetrieved player {0}", authId);
                 return player;
             }
             else

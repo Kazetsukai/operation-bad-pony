@@ -1,7 +1,7 @@
-﻿using System;
+﻿using BadPony.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 
 namespace BadPony.WebApiHost
@@ -27,17 +27,40 @@ namespace BadPony.WebApiHost
                 {
                     foreach (var message in currentTimeMessageList.ScheduledMessages)
                     {
-                        Program.Game.PostMessage(message);
+                        var result = Program.Game.PostMessage(message);
+                        if (message is IncrementAPMessage && result)
+                        {
+                            IncrementAPMessage msg = (IncrementAPMessage)message;
+                            msg.Time += 60;
+                            AddScheduledMessage(msg, msg.Time);
+                            //var scheduleNextIncrementTime = ScheduledMessages.FirstOrDefault(sm => sm.ScheduledTime == msg.Time);
+                            //if (scheduleNextIncrementTime == null)
+                            //{
+                            //    ScheduledMessages.Add(new ScheduledMessageList(msg.Time, msg));
+                            //}
+                            //else
+                            //{
+                            //    scheduleNextIncrementTime.ScheduledMessages.Add(msg);
+                            //}
+                        }
                     }
-                }
-                
-                //if (Program.UpTime % 60 == 0)
-                //{                    
-                //    BadPony.WebApiHost.Program.Game.IncrementAP();
-                //}                
+                }                             
                 Thread.Sleep(1000);
             }
             SchedulerStarted = false;
+        }
+
+        public static void AddScheduledMessage(IGameMessage msg, int time)
+        {
+            var scheduledTimeList = ScheduledMessages.FirstOrDefault(sm => sm.ScheduledTime == time);
+            if(scheduledTimeList == null)
+            {
+                ScheduledMessages.Add(new ScheduledMessageList(time, msg));
+            }
+            else
+            {
+                scheduledTimeList.ScheduledMessages.Add(msg);
+            }
         }
     }
 }

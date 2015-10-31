@@ -15,7 +15,7 @@ namespace BadPony.Core
         private List<GameObject> _gameObjects = new List<GameObject>();
         private object _lockObject = new object();
 
-        private static int DailyAP = 48;
+        public static int DailyAP = 48;
 
         public Game()
         {
@@ -138,16 +138,20 @@ namespace BadPony.Core
                 return _gameObjects.OfType<Player>().FirstOrDefault(p => p.Id == id);
         }
 
-        public void IncrementAP(int PlayerID)
+        public bool IncrementAP(int PlayerID)
         {
             lock (_lockObject)
             {
                 Player player = GetPlayerById(PlayerID);
-                if (player.ActionPoints <= 48)
+                if (player.ActionPoints < 48)
                 {
                     player.ActionPoints++;
                 }
-
+                if (player.ActionPoints >= 48)
+                {
+                    return false;
+                }
+                return true;
             }
         }
 
@@ -162,6 +166,9 @@ namespace BadPony.Core
                     UserName = m.UserName,
                     Name = m.Name,
                     ContainerId = 1,
+                    ActionPoints = 48,
+                    LastActionTime = 0,
+                    Description = m.Description
                 };
 
                 _gameObjects.Add(player);
@@ -175,7 +182,7 @@ namespace BadPony.Core
             else if (message is IncrementAPMessage)
             {
                 var incrementAPMessage = (IncrementAPMessage)message;
-                IncrementAP(incrementAPMessage.PlayerID);
+                return IncrementAP(incrementAPMessage.PlayerID);               
             }
             else if (message is DoJobMessage)
             {

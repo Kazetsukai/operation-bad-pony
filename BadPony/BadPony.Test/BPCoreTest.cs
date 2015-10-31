@@ -86,7 +86,7 @@ namespace BadPony.Test
             var game = CreateTestGame();
             Player defaultPlayer = game.GetPlayerByUsername("default");
             int initialAP = defaultPlayer.ActionPoints;
-            IncrementAPMessage incrementAP = new IncrementAPMessage { PlayerID = defaultPlayer.Id };
+            IncrementAPMessage incrementAP = new IncrementAPMessage { PlayerID = defaultPlayer.Id, Time = 60};
             game.PostMessage(incrementAP);
             Assert.Greater(48, initialAP);
             Assert.Greater(defaultPlayer.ActionPoints, initialAP);
