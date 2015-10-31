@@ -14,7 +14,7 @@ namespace BadPony.Core
     {
         private List<GameObject> _gameObjects = new List<GameObject>();
         private object _lockObject = new object();
-
+        private MessageProcessor _messageProcessor;
         public static int DailyAP = 48;
 
         public Game()
@@ -94,6 +94,8 @@ namespace BadPony.Core
                 }
             );
 
+            _messageProcessor = new MessageProcessor(this);
+
             PostMessage(new SetPropertyMessage
             {
                 ObjectId = defaultPlayer.Id,
@@ -124,6 +126,12 @@ namespace BadPony.Core
             // Super inefficient, but simplest approach for now.
             lock (_lockObject)
                 return _gameObjects.FirstOrDefault(g => g.Id == id);
+        }
+
+        public void AddGameObject(GameObject gObj)
+        {
+            lock (_lockObject)
+                _gameObjects.Add(gObj);
         }
 
         public Player GetPlayerByUsername(string userName)
@@ -160,20 +168,20 @@ namespace BadPony.Core
             // Dispatch messages at some point.
             if (message is CreateNewPlayerMessage)
             {
-                var m = (CreateNewPlayerMessage)message;
-                var player = new Player
-                {
-                    UserName = m.UserName,
-                    Name = m.Name,
-                    ContainerId = 1,
-                    ActionPoints = 48,
-                    LastActionTime = 0,
-                    Description = m.Description
-                };
+                //var m = (CreateNewPlayerMessage)message;
+                //var player = new Player
+                //{
+                //    UserName = m.UserName,
+                //    Name = m.Name,
+                //    ContainerId = 1,
+                //    ActionPoints = 48,
+                //    LastActionTime = 0,
+                //    Description = m.Description
+                //};
 
-                _gameObjects.Add(player);
-                
-                return true;
+                //_gameObjects.Add(player);
+
+                return _messageProcessor.ProcessMessage(message);
             }
             else if (message is TimerMessage)
             {

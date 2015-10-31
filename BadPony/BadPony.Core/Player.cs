@@ -10,5 +10,17 @@
         public override GameObjectType Type {
             get { return GameObjectType.Player; }
         }
+
+        public Player() { }
+
+        public Player(CreateNewPlayerMessage message)
+        {
+            UserName = message.UserName;
+            ActionPoints = 48;
+            Name = message.Name;
+            ContainerId = 1;
+            LastActionTime = 0;
+            Description = message.Description;
+        }
     }
 }
