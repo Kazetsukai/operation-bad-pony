@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Security.Policy;
 using NUnit.Framework;
 using BadPony.Core;
 
@@ -12,6 +10,7 @@ namespace BadPony.Test
     {
         private const string name = "Test";
         private const string userName = "TestUser";
+        private const string defaultUserName = "default";
         private const int containerId = 0;
         private const string description = "Test description";
 
@@ -50,12 +49,7 @@ namespace BadPony.Test
             Location backOfTonys = locations.Where(l => l.Name == "Back of Fat Tony's Pizzeria").First();
             initialObjectCount = game.GetContainedObjects(backAlley.Id).OfType<Player>().ToList().Count;
             int initialTonysCount = game.GetContainedObjects(backOfTonys.Id).OfType<Player>().ToList().Count;
-            MoveObjectMessage moveMsg = new MoveObjectMessage
-            {
-                ObjectId = game.GetPlayerByUsername(userName).Id,
-                OriginId = backAlley.Id,
-                DestinationId = backOfTonys.Id
-            };
+            MoveObjectMessage moveMsg = new MoveObjectMessage { ObjectId = game.GetPlayerByUsername(defaultUserName).Id, OriginId = backAlley.Id, DestinationId = backOfTonys.Id };
             game.PostMessage(moveMsg);
             Assert.Less(game.GetContainedObjects(backAlley.Id).OfType<Player>().ToList().Count, initialObjectCount, "Back alley ");
             Assert.Greater(game.GetContainedObjects(backOfTonys.Id).OfType<Player>().ToList().Count, initialTonysCount);
