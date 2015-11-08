@@ -146,6 +146,12 @@ namespace BadPony.Core
                 return _gameObjects.OfType<Player>().FirstOrDefault(p => p.Id == id);
         }
 
+        public int GetObjectCount()
+        {
+            lock (_lockObject)
+                return _gameObjects.Count;
+        }
+
         public bool IncrementAP(int PlayerID)
         {
             lock (_lockObject)
@@ -166,7 +172,7 @@ namespace BadPony.Core
         public bool PostMessage(IGameMessage message)
         {
             // Dispatch messages at some point.
-            if (message is CreateNewPlayerMessage)
+            if (message is CreateNewPlayerMessage || message is IncrementAPMessage || message is MoveObjectMessage || message is SetPropertyMessage)
             {
                 //var m = (CreateNewPlayerMessage)message;
                 //var player = new Player
@@ -181,17 +187,17 @@ namespace BadPony.Core
 
                 //_gameObjects.Add(player);
 
-                return _messageProcessor.ProcessMessage(message);
+                return _messageProcessor.DispatchMessage(message);
             }
             else if (message is TimerMessage)
             {
                 //IncrementAP();
             }
-            else if (message is IncrementAPMessage)
-            {
-                var incrementAPMessage = (IncrementAPMessage)message;
-                return IncrementAP(incrementAPMessage.PlayerID);               
-            }
+            //else if (message is IncrementAPMessage)
+            //{
+            //    var incrementAPMessage = (IncrementAPMessage)message;
+            //    return IncrementAP(incrementAPMessage.PlayerID);               
+            //}
             else if (message is DoJobMessage)
             {
                 var jobMessage = (DoJobMessage)message;
@@ -207,37 +213,37 @@ namespace BadPony.Core
                 }
                 return false;
             }
-            else if (message is MoveObjectMessage)
-            {
-                var m = (MoveObjectMessage)message;
+            //else if (message is MoveObjectMessage)
+            //{
+            //    var m = (MoveObjectMessage)message;
 
-                var obj = GetObject(m.ObjectId);
+            //    var obj = GetObject(m.ObjectId);
 
-                if (m.OriginId != null && m.OriginId.Value != obj.ContainerId)
-                {
-                    // Trying to move from a location you aren't in.
-                    return false;
-                }
+            //    if (m.OriginId != null && m.OriginId.Value != obj.ContainerId)
+            //    {
+            //        // Trying to move from a location you aren't in.
+            //        return false;
+            //    }
 
-                obj.ContainerId = m.DestinationId;
+            //    obj.ContainerId = m.DestinationId;
 
-                return true;
-            }
-            else if (message is SetPropertyMessage)
-            {
-                var m = (SetPropertyMessage)message;
+            //    return true;
+            //}
+            //else if (message is SetPropertyMessage)
+            //{
+            //    var m = (SetPropertyMessage)message;
 
-                var obj = GetObject(m.ObjectId);
+            //    var obj = GetObject(m.ObjectId);
 
-                if (obj.Properties.ContainsKey(m.PropertyName))
-                {
-                    obj.Properties.Remove(m.PropertyName);
-                }
+            //    if (obj.Properties.ContainsKey(m.PropertyName))
+            //    {
+            //        obj.Properties.Remove(m.PropertyName);
+            //    }
 
-                obj.Properties.Add(m.PropertyName, m.Value);
+            //    obj.Properties.Add(m.PropertyName, m.Value);
 
-                return true;
-            }
+            //    return true;
+            //}
             else if (message is ExecutePropertyMessage)
             {
                 var m = (ExecutePropertyMessage)message;

@@ -77,6 +77,10 @@ namespace BadPony.Test
         {
             var game = CreateTestGame();
             var initialObjectCount = game.GetAllObjects().OfType<Player>().ToList().Count;
+            IncrementAPMessage incAPMessage = new IncrementAPMessage
+            {
+                PlayerID = 
+            };
             
         }
 
