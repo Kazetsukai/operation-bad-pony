@@ -76,12 +76,21 @@ namespace BadPony.Test
         public void TestSetPropertyMessage()
         {
             var game = CreateTestGame();
-            var initialObjectCount = game.GetAllObjects().OfType<Player>().ToList().Count;
-            IncrementAPMessage incAPMessage = new IncrementAPMessage
+            string testKey = "TestKey"; 
+            string testValue = "TestValue";
+            var testObject = game.GetAllObjects().First();
+            var properties = testObject.Properties;
+            int initialPropertyCount = properties.Count;
+            Assert.IsNull(properties.FirstOrDefault(p => p.Key == testKey).Value, "TestKey already exists at initialisation");
+            SetPropertyMessage propertyMessage = new SetPropertyMessage
             {
-                PlayerID = 
+                ObjectId = testObject.Id,
+                PropertyName = testKey,
+                Value = testValue
             };
-            
+            game.PostMessage(propertyMessage);
+            Assert.AreEqual(properties.FirstOrDefault(p => p.Key == testKey).Value, testValue);
+
         }
 
         [Test]
