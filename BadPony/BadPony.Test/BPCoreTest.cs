@@ -127,5 +127,25 @@ namespace BadPony.Test
             Assert.Greater(48, initialAP);
             Assert.Greater(defaultPlayer.ActionPoints, initialAP);
         }
+
+        [Test]
+        public void TestDoJobMessage()
+        {
+            var game = CreateTestGame();
+            Player defaultPlayer = game.GetPlayerByUsername("default");
+            defaultPlayer.ActionPoints = Game.DailyAP; 
+            Job job = game.GetAllObjects().OfType<Job>().FirstOrDefault(j => j.Name == "Wash Dishes");
+            int expectedAP = defaultPlayer.ActionPoints - job.APCost;
+            int expectedCash = defaultPlayer.Cash + job.Pay;
+            defaultPlayer.ContainerId = game.GetAllObjects().OfType<Location>().FirstOrDefault(l => l.Name == "Back of Fat Tony's Pizzeria").Id;
+            DoJobMessage doJobMessage = new DoJobMessage
+            {
+                JobId = job.Id,
+                PlayerId = defaultPlayer.Id
+            };
+            game.PostMessage(doJobMessage);
+            Assert.AreEqual(expectedAP, defaultPlayer.ActionPoints, "ActionPoints not deducted.");
+            Assert.AreEqual(expectedCash, defaultPlayer.Cash, "Cash not added.");
+        }
     }
 }
