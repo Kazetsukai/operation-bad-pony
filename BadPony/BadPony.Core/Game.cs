@@ -94,19 +94,7 @@ namespace BadPony.Core
                 }
             );
 
-            _messageProcessor = new MessageProcessor(this);
-
-            PostMessage(new SetPropertyMessage
-            {
-                ObjectId = defaultPlayer.Id,
-                PropertyName = "lol",
-                Value = "msg.Send(\"testing lol\")"
-            });
-            PostMessage(new ExecutePropertyMessage
-            {
-                ObjectId = defaultPlayer.Id,
-                PropertyName = "lol"
-            });
+            _messageProcessor = new MessageProcessor(this);            
         }
 
         public IEnumerable<GameObject> GetAllObjects()
@@ -263,7 +251,8 @@ namespace BadPony.Core
                             // We create a new v8 engine each time so one piece of code can't mess with other code.
                             var engine = new V8ScriptEngine(V8ScriptEngineFlags.DisableGlobalMembers);
 
-                            engine.AddHostObject("msg", new MessageHost());
+                            engine.AddHostObject("msg", new MessageHost(this));
+                            
 
                             foreach (var prop in obj.Properties)
                                 engine.Script["$" + prop.Key] = prop.Value;
@@ -287,9 +276,21 @@ namespace BadPony.Core
 
     public class MessageHost
     {
+        private Game _game;
+
+        public MessageHost(Game game)
+        {
+            _game = game;
+        }
+
         public void Send(string message)
         {
             Console.WriteLine(message);
+        }
+
+        public void setDailyAP(int newDailyAP)
+        {
+            Game.DailyAP = newDailyAP;
         }
     }
 }

@@ -89,8 +89,31 @@ namespace BadPony.Test
                 Value = testValue
             };
             game.PostMessage(propertyMessage);
-            Assert.AreEqual(properties.FirstOrDefault(p => p.Key == testKey).Value, testValue);
+            Assert.AreEqual(testValue, properties.FirstOrDefault(p => p.Key == testKey).Value );
+        }
 
+        [Test]
+        public void TestExecutePropertyMessage()
+        {
+            var game = CreateTestGame();
+            Assert.AreEqual(48, Game.DailyAP, "Default DailyAP value has been changed. Pleast verify TestExecutePropertyMessage test case is still valid and update this assertion.");
+            string testKey = "SetAPTo100";
+            string testValue = "msg.setDailyAP(100);";
+            var testObject = game.GetAllObjects().First();
+            SetPropertyMessage setPropertyMessage = new SetPropertyMessage
+            {
+                ObjectId = testObject.Id,
+                PropertyName = testKey,
+                Value = testValue
+            };
+            game.PostMessage(setPropertyMessage);
+            ExecutePropertyMessage executePropertyMessage = new ExecutePropertyMessage
+            {
+                ObjectId = testObject.Id,
+                PropertyName = testKey
+            };
+            game.PostMessage(executePropertyMessage);
+            Assert.AreEqual(100, Game.DailyAP);
         }
 
         [Test]
